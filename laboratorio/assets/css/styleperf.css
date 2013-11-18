@@ -1,0 +1,101 @@
+/* Definiciones Generales */
+
+* {
+	font-family: helvetica, arial, verdana;
+	color: #A0A0A0;
+}
+
+body{
+	background-color: #FFFFFF;
+}
+
+p{
+	text-align: center;
+}
+
+h2{
+	padding: 0 0 0 20px;
+}
+
+/* Clases Encabezado */
+
+.encabezado{
+	border-bottom: 1px solid #D8D8D8;
+	padding: 0 0 0 10px;
+}
+
+.header ul{
+	font-size: 12px;
+	float: right;
+	list-style: none;
+	margin-right: 50px;
+}
+.header ul li{
+	padding: 2px;
+}
+
+.header ul li:hover{
+	color: #0000FF;
+	cursor: pointer;
+}
+
+.header ul a{
+	text-decoration: none;
+}
+
+.header ul a:hover{
+	color: #0000FF;
+}
+
+/* Clases del Contenido */
+
+.content{
+	width: 100%;
+	height: 450px;
+}
+
+.menu{
+	width: 20%;
+	height: 450px;
+	border-right: 1px solid #D8D8D8;
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+
+.menu ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.menu ul li{
+	width: auto;
+	padding: 15px 0 15px 30px;
+	font-weight: bold;
+}
+
+.menu ul li:hover{
+	background: linear-gradient(to bottom, #EEEEEE, #EEEEEE, #AAAAAA, #CCCCCC);
+	color: #000000;
+}
+
+.menu ul li:active{
+	background: linear-gradient(to bottom, #EEEEEE, #EEEEEE, #AAAAAA, #CCCCCC);
+	color: #000000;
+}
+
+.pantalla{
+	width: auto;
+	height: 450px;
+	float: left;
+}
+
+/* Clases del Footer */
+
+.footer{
+	font-size: 12px;
+	padding: 1px;
+	border-top: 1px solid #D8D8D8;
+}
