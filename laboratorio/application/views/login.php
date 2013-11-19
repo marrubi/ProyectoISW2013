@@ -8,9 +8,10 @@
 	</head>
 	<body>
 		<header class="encabezado">
-			<a href="<?php echo base_url();?>"><img src="<?php echo base_url('assets/img/logo.png');?>"/></a>
+			<a class="image" href="<?php echo base_url();?>"><img src="<?php echo base_url('assets/img/logo.png');?>"/></a>
 		</header>
-		<section class="form">
+		<section class="sect">
+			<div class="form">
 			<?php echo form_open(base_url().'index.php/login/validar'); ?>
 				<div id="titulo">
 					<label class="titu"><b>Iniciar Sesión</b></label>
@@ -33,7 +34,8 @@
 							echo '</div><br/>';
 					?>
 				</div>
-			<?php echo form_close(); ?> 
+			<?php echo form_close(); ?>
+			</div> 
 		</section>
 		<footer class="footer">
 			<p>Dieciocho 161 - Santiago, Chile. Metro Moneda - Fono: 2787 7500</p>

@@ -17,14 +17,32 @@ p{
 	font-size: 12px;
 }
 
+/* Header */
+
 .encabezado{
-	border-bottom: 1px solid #D8D8D8;
+	border: 1px solid #D8D8D8;
 	padding: 0;
+}
+
+.image{
+	display: block;
+	padding-left: 10px;
+	width: 303px;
+	height: 142px;
+}
+/* Section */
+
+.sect{
+	padding: 0;
+	border-left: 1px solid #D8D8D8;
+	border-right: 1px solid #D8D8D8;
 }
 
 .form{
 	display:block;
-    margin:10px auto;
+    padding:10px;
+    margin-left: auto;
+    margin-right: auto;
     width: 300px;
     color: #666666;
     font-family:Arial;
@@ -117,12 +135,12 @@ p{
 	cursor: pointer;
 }
 
-/* Clases del Footer */
+/* Footer */
 
 .footer{
 	font-size: 12px;
 	padding: 1px;
-	border-top: 1px solid #D8D8D8;
+	border: 1px solid #D8D8D8;
 }
 
 .footer ul{
@@ -162,6 +180,7 @@ p{
 	padding: 10px;
 	border-radius: 3px;
 	border: 1px solid #00CC00;
+	cursor: pointer;
 	color: #FFFFFF;
 	background: linear-gradient(to bottom, #00CC00, #00AA00);
 	text-align: center;

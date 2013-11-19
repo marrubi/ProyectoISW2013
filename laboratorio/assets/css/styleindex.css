@@ -1,7 +1,7 @@
 /* Definiciones Generales */
 
 * {
-	font-family: helvetica, arial, verdana;
+	font-family: helvetica;
 	color: #A0A0A0;
 }
 
@@ -12,6 +12,7 @@ body{
 p{
 	text-align: center;
 	padding: 10px;
+	border: 1px solid #D8D8D8;
 }
 
 
@@ -24,9 +25,10 @@ p{
 
 .header ul{
 	font-size: 12px;
+	margin-right: 30px;
+	margin-top: 20px;
 	float: right;
 	list-style: none;
-	margin-right: 50px;
 }
 .header ul li{
 	padding: 2px;
@@ -39,32 +41,57 @@ p{
 
 .header ul a{
 	text-decoration: none;
+	text-align: center;
+	font-weight: bold;
+	display: block;
+	padding: 10px 20px 10px 20px;
+	color: #EEEEEE;
+	background: linear-gradient(180deg,#0000E5 10%, #000075 90%);
 }
 
 .header ul a:hover{
-	color: #0000FF;
+	background: linear-gradient(180deg,#0000FE 10%, #0000BB 90%);
+	color: #FFFFFF;
+}
+
+.image{
+	display: block;
+	padding-left: 10px;
+	width: 303px;
+	height: 142px;
 }
 
 /* Clases del Section*/
 
 .content{
-	border: 1px solid #D8D8D8;
-	background: #333333;
+	border: 1px solid transparent;
+	padding: 0;
+	background: black;
+}
+
+.content h1, h5{
+	text-align: center;
+}
+
+.imgcont{
+	display: block;
+	width: 300px;
+	height: 300px;
+	margin-left: auto;
+	margin-right: auto;
+	border: none;
 }
 
 /* Clases del Footer */
 
 .footer{
 	font-size: 12px;
-	border-bottom: 1px solid #D8D8D8;
-	border-left: 1px solid #D8D8D8;
-	border-right: 1px solid #D8D8D8;
 }
 
 .footer ul{
 	float: left;
-	font-weight: bold;
 	list-style: none;
+	font-weight: bold;
 	margin: 0;
 	padding: 0;
 	background: #777777;
@@ -73,25 +100,24 @@ p{
 
 .footer ul li{
 	float:left;
-	padding: 10px;
-}
-
-.footer ul a{
-	text-decoration: none;
-	padding: 0;
-	width: auto;
-	height: auto;
-	border: 1px solid #FFFFFF;
-}
-
-.footer ul a:hover{
-	text-decoration: none;
-	margin: auto;
-	color: #FFFFFF;
 }
 
 .footer ul li:hover{
 	color: #FFFFFF;
 	cursor: pointer;
 	background: #848484;
+}
+
+.footer ul a{
+	text-decoration: none;
+	display: block;
+	color: #BBBBBB;
+	padding: 10px;
+
+}
+
+.footer ul a:hover{
+	text-decoration: none;
+	margin: auto;
+	color: #FFFFFF;
 }

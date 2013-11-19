@@ -14,10 +14,11 @@
 					<li><a href="<?php echo base_url('index.php/login');?>">Iniciar Sesión</a></li>
 				</ul>
 			</nav>
-			<a href="<?php echo base_url();?>"><img id="image" border=0 src="<?php echo base_url('assets/img/logo.png');?>"/></a>
+			<a class="image" href="<?php echo base_url();?>"><img border=0 src="<?php echo base_url('assets/img/logo.png');?>"/></a>
 		</header>
 		<section class="content">
-				<h1>Aquí irá una galería de fotos rotantes</h1>
+				<h1>Laboratorio de Informática UTEM</h1>
+				<img class="imgcont" src="<?php echo base_url('assets/img/pc.png');?>"/>
 				<h5>El laboratorio perteneciente a la Escuela de Informática
 					de la Universidad Tecnológica Metropolitana del Estado de Chile,
 					tiene como misión, ayudar a profesores y alumnos</h5>
@@ -25,7 +26,6 @@
 		<footer class="footer">
 			<ul>
 				<li><a href="<?php echo base_url('index.php/acerca_de');?>">Acerca del sitio</a></li>
-				<li><a href="<?php echo base_url('index.php/contacto');?>">Contacto</a></li>
 			</ul>
 			<br><p>Dieciocho 161 - Santiago, Chile. Metro Moneda - Fono: 2787 7500</p>
 		</footer>
