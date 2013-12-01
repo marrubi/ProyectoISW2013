@@ -5,25 +5,36 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/styleperf.css');?>">
 		<link rel="icon" type="image/png" href="<?php echo base_url('assets/img/comp.png');?>">
+		<script src="<?php echo base_url('assets/js/jquery.js');?>"></script>
 	</head>
 	<body>
 		<header class="encabezado">
 			<nav class="header">
 				<ul>
-					<li><a href="<?php echo base_url('index.php/login');?>">Cerrar Sesión</a></li>
+					Bienvenido <?php echo $nombre.' !'; ?><li><a href="<?php echo base_url('index.php/estudiante/logout')?>">Cerrar Sesión</a></li>
 				</ul>
 			</nav>
-			<a href="<?php echo base_url();?>"><img id="image" border=0 src="<?php echo base_url('assets/img/logo.png');?>"/></a>
+			<a class="image"><img src="<?php echo base_url('assets/img/logo2.png');?>"/></a>
 		</header>
 		<section class="content">
 			<nav class="menu">
-				<ul>
-					<li>Laboratorio</li>
-
+				<ul class="list-menu">
+					<li><a href="#">Laboratorios</a>
+						<ul>
+							<li><a href="#">Laboratorio 1</a></li>
+							<li><a href="#">Laboratorio 6</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Solicitudes</a>
+						<ul>
+							<li><a href="#">Estado Solicitud</a></li>
+							<li><a href="#">Enviar solicitud</a></li>
+						</ul>
+					</li>
 				</ul>
 			</nav>
 			<section class="pantalla">
-				<h2>Computadores Disponibles</h2>
+				
 			</section>
 		</section>
 		<footer class="footer">

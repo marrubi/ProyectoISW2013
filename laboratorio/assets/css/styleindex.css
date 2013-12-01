@@ -6,13 +6,16 @@
 }
 
 body{
-	background-color: #FFFFFF;
+	background-color: #F3F3F3;
+	width: 1024px;
+	height: 600px;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 p{
 	text-align: center;
-	padding: 10px;
-	border: 1px solid #D8D8D8;
+	font-size: 10px;
 }
 
 
@@ -56,6 +59,7 @@ p{
 
 .image{
 	display: block;
+	float: left;
 	padding-left: 10px;
 	width: 303px;
 	height: 142px;
@@ -64,28 +68,117 @@ p{
 /* Clases del Section*/
 
 .content{
-	border: 1px solid transparent;
-	padding: 0;
-	background: black;
+	border-left: 1px solid #D8D8D8;
+	border-right: 1px solid #D8D8D8;
+	height: 425px;
 }
 
-.content h1, h5{
+.text{
+	margin-left: 50px;
+	float: left;
+	padding: 10px;
+}
+
+.login{
+	float: right;
+	margin-right: 50px;
+	padding: 10px;
+	position: relative;
+}
+
+.form{
+	display:block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    color: #666666;
+    font-family:Arial;
+}
+
+.lab{
+	width: 270px;
+	height: 20px;
+	margin: 5px;
+	text-align: left;
+}
+
+.box{
+	width: 270px;
+	height: 20px;
+	font-size: 12px;
+	margin: 5px;
+	text-align: left;
+	border: 1px solid #C7C7C7;
+	background: #F3F3F3;
+}
+.box:hover{
+	border: 1px solid #009999;
+}
+
+.box:focus{
+	border: 1px solid #00EE00;
+}
+
+.box2{
+	width: 300px;
+	height: 50px;
+	font-size: 12px;
+	text-align: left;
+	border: 1px solid #C7C7C7;
+}
+
+#titulo{
+	width: auto;
+	height: 20px;
+	background: linear-gradient(to bottom, #0000CC, #0000CC, #000055, #0000AA);
+	padding: 10px 0 10px 10px;
+	text-align: left;
+	color: #EEEEEE;
+}
+
+#contenido{
+	width: auto;
+	padding: 10px;
+	border: 1px solid #C7C7C7;
+}
+
+#boton{
 	text-align: center;
 }
 
-.imgcont{
-	display: block;
-	width: 300px;
-	height: 300px;
-	margin-left: auto;
-	margin-right: auto;
-	border: none;
+#submit{
+	width: 150px;
+	margin: 0;
+	padding: 10px;
+	border-radius: 3px;
+	border: 1px solid #00CC00;
+	cursor: pointer;
+	color: #FFFFFF;
+	background: linear-gradient(to bottom, #00CC00, #00AA00);
+	text-align: center;
+}
+
+#submit:hover{
+	background: linear-gradient(to bottom, #00EE00, #00CC00);
+	outline: 0;
+}
+
+#submit:active{
+	background: linear-gradient(to bottom, #00AA00, #00CC00);
+	position:relative;
+	top:1px;
 }
 
 /* Clases del Footer */
 
+.footer p{
+	padding: 10px;
+	font-size: 12px;
+}
+
 .footer{
 	font-size: 12px;
+	border: 1px solid #D8D8D8;
 }
 
 .footer ul{
@@ -111,7 +204,7 @@ p{
 .footer ul a{
 	text-decoration: none;
 	display: block;
-	color: #BBBBBB;
+	color: #CCCCCC;
 	padding: 10px;
 
 }

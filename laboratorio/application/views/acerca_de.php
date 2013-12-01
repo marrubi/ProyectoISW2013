@@ -8,12 +8,8 @@
 	</head>
 	<body>
 		<header class="encabezado">
-			<nav class="header">
-				<ul>
-					<li><a href="<?php echo base_url('index.php/login');?>">Iniciar Sesión</a></li>
-				</ul>
-			</nav>
-			<a href="<?php echo base_url();?>"><img border=0 src="<?php echo base_url('assets/img/logo.png');?>"/></a>
+			<a class="image" href="<?php echo base_url();?>"><img border=0 src="<?php echo base_url('assets/img/logo.png');?>"/></a>
+			<img border=0 src="<?php echo base_url('assets/img/logo-estatales.jpg');?>"/>
 		</header>
 		<section class="content">
 				
