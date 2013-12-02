@@ -11,6 +11,10 @@
 		<header class="encabezado">
 			<a class="image" href="<?php echo base_url();?>"><img border=0 src="<?php echo base_url('assets/img/logo2.png');?>"/></a>
 			<img border=0 src="<?php echo base_url('assets/img/logo-estatales2.png');?>"/>
+			<div id="enlaces">
+				<a href="http://www.utem.cl">UTEM</a><br/>
+				<a href="http://informatica.utem.cl">Informática UTEM</a>
+			</div>
 		</header>
 		<section class="content">
 			<article class="text">
@@ -18,7 +22,7 @@
 				El acceso al sistema está restringido para estudiantes, académicos,<br/>
 				funcionarios y administradores de la Escuela de Informática de la<br/>
 				Universidad Tecnológica Metropolitana del Estado de Chile.<br/><br/>
-				Ingrese Usuario y Contraseña para iniciar.
+				Ingrese Rut y Contraseña para iniciar.
 			</article>
 			<article class="login">
 			<div class="form">

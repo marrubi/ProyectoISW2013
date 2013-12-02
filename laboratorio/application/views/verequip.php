@@ -11,7 +11,7 @@
 		<header class="encabezado">
 			<nav class="header">
 				<ul>
-					<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
+					Bienvenido <li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
 				</ul>
 			</nav>
 			<a class="image"><img src="<?php echo base_url('assets/img/logo2.png');?>"/></a>
@@ -36,7 +36,8 @@
 					</li>
 					<li><a href="#">Préstamo de inventario</a>
 						<ul>
-							<li></li>
+							<li><a href="<?= base_url('index.php/funcionario/vistaPrestamo')?>">Ingresar Préstamo</a></li>
+							<li><a href="#">Inventario</a></li>
 						</ul>
 					</li>
 					<li><a href="#">Equipos</a>
@@ -47,6 +48,37 @@
 				</ul>
 			</nav>
 			<section class="pantalla">
+				<table>
+					<tr>
+						<td class="td">Serial</td>
+						<td class="td">Estado</td>
+						<td class="td">Disponibilidad</td>
+					</tr>
+					<?php foreach($equipos as $row): ?>
+					<?= "<tr>";?>
+					<?= "<td>".$row['serie']."</td>";?>
+					<?php 
+						if($row['estado-fk'] == '2'){
+							echo "<td>Inhabilitado"."    |    "."<a href='#'>Habilitar</a></td>";
+
+						}
+						else{
+							echo "<td>Habilitado"."    |    "."<a href='#'>Inhabilitar</a></td>";
+						}
+					?>
+					<?php 
+						if($row['uso-fk'] == '1'){
+							echo "<td>Libre</td>";
+
+						}
+						else{
+							echo "<td>Ocupado</td>";
+						}
+					?>
+					<?= "</tr>"; ?>
+
+					<?php endforeach ?>	
+				</table>	
 			</section>
 		</section>
 		<footer class="footer">

@@ -11,7 +11,7 @@
 		<header class="encabezado">
 			<nav class="header">
 				<ul>
-					<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
+					Bienvenido<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
 				</ul>
 			</nav>
 			<a class="image"><img src="<?php echo base_url('assets/img/logo2.png');?>"/></a>
@@ -34,10 +34,7 @@
 							<li><a href="#">Agregar Impresión</a></li>
 						</ul>
 					</li>
-					<li><a href="#">Préstamo de inventario</a>
-						<ul>
-							<li></li>
-						</ul>
+					<li><a href="<?= base_url('index.php/funcionario/verInventario')?>">Préstamo de inventario</a>
 					</li>
 					<li><a href="#">Equipos</a>
 						<ul>
@@ -47,6 +44,9 @@
 				</ul>
 			</nav>
 			<section class="pantalla">
+				<form>
+
+				</form>
 			</section>
 		</section>
 		<footer class="footer">
