@@ -42,7 +42,10 @@ class Funcionario extends CI_Controller{
         $this->load->view('verequip',$data);
     }
 
-    public function vistaPrestamo(){
+    public function estadoInventario(){
+        $this->load->view('inventario');
+    }
+    public function estadoInventario(){
         $this->load->view('prestamo');
     }
 }
