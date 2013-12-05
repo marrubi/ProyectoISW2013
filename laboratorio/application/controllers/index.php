@@ -16,29 +16,17 @@ class Index extends CI_Controller{
 	}
 
 	public function validar(){
-		$this->form_validation->set_rules('rut','Rut','trim|required|min_length[7]|max_length[8]|xss_clean');
-        $this->form_validation->set_rules('password','Password','required|trim|callback_verificarfunc');
-        $this->form_validation->set_rules('password','Password','required|trim|callback_verificaradmin');
 
-        
-        $this->form_validation->set_message('min_length[7]','Largo de campo %s menor al determinado');
-        $this->form_validation->set_message('max_length[8]','Largo de campo %s mayor al determinado');
+        $this->form_validation->set_message('min_length','Largo de campo %s menor al determinado');
+        $this->form_validation->set_message('max_length','Largo de campo %s mayor al determinado');
         $this->form_validation->set_message('required','Campo %s vacío');
 
         //Validación para funcionario y administrador
-        if(($this->form_validation->verificarfunc() && $this->form_validation->verificaradmin())== FALSE){
-           	$this->load->view('index');
+        if($this->form_validation->run('valida_func')== FALSE){
+        	$this->load->view('index');
         }
         else{
-
-        	//Redirecciones a las perfiles correspondientes
-        	if($this->form_validation->verificarfunc() == true){
-        		redirect('funcionario','refresh');
-        	}
-        	else{
-        		redirect('administrador','refresh');
-        	}
-        	
+        	redirect('funcionario','refresh');
         }
 	}
 
@@ -55,7 +43,6 @@ class Index extends CI_Controller{
 			foreach($resultado as $row){
 				$sess_array = array(
 					'rut' => $row->rut,
-					'nombre' => $row->nombre
 				);
 				$this->session->set_userdata('logged_in', $sess_array);
 			}
@@ -79,7 +66,6 @@ class Index extends CI_Controller{
 			foreach($resultado as $row){
 				$sess_array = array(
 					'rut' => $row->rut,
-					'nombre' => $row->nombre
 				);
 				$this->session->set_userdata('logged_in', $sess_array);
 			}
