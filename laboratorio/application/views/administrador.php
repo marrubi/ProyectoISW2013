@@ -12,7 +12,7 @@
 			<header class="encabezado">
 				<nav class="header">
 					<ul>
-						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
+						<li><a href="<?php echo base_url('index.php/administrador/logout')?>">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
 				<a class="image"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
