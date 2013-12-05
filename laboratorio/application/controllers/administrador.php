@@ -2,6 +2,7 @@
 session_start();
 class Administrador extends CI_Controller{
 
+    //Constructor del controlador Administrador
     public function __construct(){
 		parent::__construct();
 		$this->load->helper('url');
@@ -9,6 +10,7 @@ class Administrador extends CI_Controller{
         $this->load->model('equipoModel');
 	}
 
+    //Redirecciones
 	public function index(){
         if($this->session->userdata('logged_in')){
             $session_data = $this->session->userdata('logged_in');
@@ -21,12 +23,14 @@ class Administrador extends CI_Controller{
         }
     }
 
+    //Finalizar Sesión
     public function logout(){
         $this->session->unset_userdata('logged_in');
         session_destroy();
         redirect('administrador', 'refresh');
     }
 
+    //Ver laboratorios
     public function verLabs(){
         $data = array(
             'titulo' => 'Laboratorios',
@@ -35,6 +39,7 @@ class Administrador extends CI_Controller{
         $this->load->view('verlab',$data);
     }
 
+    //Ver equipos
     public function verEq($numLab){
         $data = array(
             'equipos' => $this->equipoModel->getEquip($numLab)        
@@ -42,12 +47,14 @@ class Administrador extends CI_Controller{
         $this->load->view('verequip',$data);
     }
 
+    //Ver inventario
     public function estadoInventario(){
         $this->load->view('inventario');
     }
+
+    //Ver Préstamo Inventario
     public function prestamoInventario(){
         $this->load->view('prestamo');
     }
 }
-?>
 ?>

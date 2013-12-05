@@ -1,10 +1,12 @@
 <?php
 class FuncionarioModel extends CI_Model{
 
-	public function funcionarioModel(){
+	//Constructor
+	public function __construct(){
 		parent::__construct();
 	}
 
+	//Login de Funcionario
 	public function login($rut,$password){
 		$this->db->select('rut, password');
 		$this->db->from('tb-funcionario');

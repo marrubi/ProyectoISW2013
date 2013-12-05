@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Perfil Funcionario</title>
+		<title>Impresiones</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/styleperf.css');?>">
 		<link rel="icon" type="image/png" href="<?php echo base_url('assets/img/comp.png');?>">
@@ -44,35 +44,7 @@
 			</nav>
 			<section class="pantalla">
 				<?php
-					if($equipos == false){
-						echo "<div class='centrar-mensaje'>No hay equipos disponibles</div>";
-					}
-					else{
-						echo "<table>";
-						echo "<tr>";
-						echo "<td class='td'>Serial</td>";
-						echo "<td class='td'>Estado</td>";
-						echo "<td class='td'>Disponibilidad</td>";
-						echo "</tr>";
-						foreach($equipos as $row){					
-							echo "<tr>";
-							echo "<td>".$row['serie']."</td>";
-							if($row['estado-fk'] == '2'){
-								echo "<td>Inhabilitado"."    |    "."<a href='#'>Habilitar</a></td>";
-							}
-							else{
-								echo "<td>Habilitado"."    |    "."<a href='#'>Inhabilitar</a></td>";
-							}
-							if($row['uso-fk'] == '1'){
-								echo "<td>Libre</td>";
-							}
-							else{
-								echo "<td>Ocupado</td>";
-							}
-							echo "</tr>";
-						}
-						echo "</table>";
-					}
+					
 				?>
 			</section>
 		</section>

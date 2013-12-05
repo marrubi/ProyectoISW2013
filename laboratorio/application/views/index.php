@@ -43,6 +43,7 @@
 							  echo '</div><br/>';
 						?>
 					</div>
+					<?php echo form_close() ?>
 				</div>
 				</article>
 			</section>

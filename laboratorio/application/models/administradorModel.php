@@ -1,10 +1,12 @@
 <?php
 class AdministradorModel extends CI_Model{
 
+	//Constructor
 	public function __construct(){
 		parent::__construct();
 	}
 
+	//Login de administrador
 	public function login($rut,$password){
 		$this->db->select('rut, password');
 		$this->db->from('tb-administrador');

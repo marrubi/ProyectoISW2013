@@ -12,6 +12,7 @@
 			<header class="encabezado">
 				<nav class="header">
 					<ul>
+						<span>Hola <?= $rut?></span>
 						<li><a href="<?php echo base_url('index.php/administrador/logout')?>">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
@@ -35,7 +36,7 @@
 						<li><a href="">Impresiones</a>
 							<ul>
 								<li><a href="">Impresiones Realizadas</a></li>
-								<li><a href="#">Agregar Impresión</a></li>
+								<li><a href="">Agregar Impresión</a></li>
 							</ul>
 						</li>
 						<li><a href="">Inventario</a>
