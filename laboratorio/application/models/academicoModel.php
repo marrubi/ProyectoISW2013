@@ -21,5 +21,21 @@ class AcademicoModel extends CI_Model{
 			return false;
 		}
 	}
+
+	public function consultar_academico($rut){
+		$this->db->select('rut, password');
+		$this->db->from('tb-academico');
+		$this->db->where('rut', $rut);
+		$this->db->limit(1);
+
+		$query = $this->db->get();
+
+		if($query->num_rows() == 1){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 }
 ?>

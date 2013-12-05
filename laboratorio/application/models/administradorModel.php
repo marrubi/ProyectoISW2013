@@ -1,7 +1,7 @@
 <?php
-class AdminisradorModel extends CI_Model{
+class AdministradorModel extends CI_Model{
 
-	public function __construct()){
+	public function __construct(){
 		parent::__construct();
 	}
 

@@ -14,12 +14,13 @@
 					Bienvenido <li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
 				</ul>
 			</nav>
-			<a class="image"><img src="<?php echo base_url('assets/img/logo2.png');?>"/></a>
+			<a class="image"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
+			<img border=0 src="<?php echo base_url('assets/img/logo-estatales2.jpg');?>"/>
 		</header>
 		<section class="content">
 			<nav class="menu">
 				<ul class="list-menu">
-					<li>Laboratorios
+					<li><a href="">Laboratorios</a>
 						<ul>
 							<li><a href="<?= base_url('index.php/funcionario/verLabs')?>">Estado de Laboratorios</a></li>
 							<li><a href="<?= base_url('index.php/funcionario/verEq/1')?>">Laboratorio 1</a></li>
@@ -30,49 +31,49 @@
 							<li><a href="<?= base_url('index.php/funcionario/verEq/6')?>">Laboratorio 6</a></li>
 						</ul>
 					</li>
-					<li>Impresiones
+					<li><a href="">Impresiones</a>
 						<ul>
 							<li><a href="">Impresiones Realizadas</a></li>
 							<li><a href="#">Agregar Impresión</a></li>
 						</ul>
 					</li>
-					<li>Inventario
+					<li><a href="">Inventario</a>
 						<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
 						<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Agregar Préstamo de Inventario</a></li>
 					</li>
 			</nav>
 			<section class="pantalla">
-				<table>
-					<tr>
-						<td class="td">Serial</td>
-						<td class="td">Estado</td>
-						<td class="td">Disponibilidad</td>
-					</tr>
-					<?php foreach($equipos as $row): ?>
-					<?= "<tr>";?>
-					<?= "<td>".$row['serie']."</td>";?>
-					<?php 
-						if($row['estado-fk'] == '2'){
-							echo "<td>Inhabilitado"."    |    "."<a href='#'>Habilitar</a></td>";
-
+				<?php
+					if($equipos == false){
+						echo "<div class='centrar-mensaje'>No hay equipos disponibles</div>";
+					}
+					else{
+						echo "<table>";
+						echo "<tr>";
+						echo "<td class='td'>Serial</td>";
+						echo "<td class='td'>Estado</td>";
+						echo "<td class='td'>Disponibilidad</td>";
+						echo "</tr>";
+						foreach($equipos as $row){					
+							echo "<tr>";
+							echo "<td>".$row['serie']."</td>";
+							if($row['estado-fk'] == '2'){
+								echo "<td>Inhabilitado"."    |    "."<a href='#'>Habilitar</a></td>";
+							}
+							else{
+								echo "<td>Habilitado"."    |    "."<a href='#'>Inhabilitar</a></td>";
+							}
+							if($row['uso-fk'] == '1'){
+								echo "<td>Libre</td>";
+							}
+							else{
+								echo "<td>Ocupado</td>";
+							}
+							echo "</tr>";
 						}
-						else{
-							echo "<td>Habilitado"."    |    "."<a href='#'>Inhabilitar</a></td>";
-						}
-					?>
-					<?php 
-						if($row['uso-fk'] == '1'){
-							echo "<td>Libre</td>";
-
-						}
-						else{
-							echo "<td>Ocupado</td>";
-						}
-					?>
-					<?= "</tr>"; ?>
-
-					<?php endforeach ?>	
-				</table>	
+						echo "</table>";
+					}
+				?>
 			</section>
 		</section>
 		<footer class="footer">

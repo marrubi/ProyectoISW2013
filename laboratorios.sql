@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 02-12-2013 a las 20:02:49
+-- Tiempo de generación: 05-12-2013 a las 01:21:55
 -- Versión del servidor: 5.6.12-log
 -- Versión de PHP: 5.4.12
 
@@ -21,6 +21,30 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `laboratorios` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
 USE `laboratorios`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tb-administrador`
+--
+
+CREATE TABLE IF NOT EXISTS `tb-administrador` (
+  `id_admin` int(11) NOT NULL AUTO_INCREMENT,
+  `rut` int(11) NOT NULL,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `apellido` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `password` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_admin`),
+  UNIQUE KEY `rut` (`rut`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `tb-administrador`
+--
+
+INSERT INTO `tb-administrador` (`id_admin`, `rut`, `nombre`, `apellido`, `password`) VALUES
+(4, 10856372, 'Gerardo', 'Martino', 'ger_martin19_/(x'),
+(3, 9874623, 'José', 'Pekerman', 'jose_pek_&18');
 
 -- --------------------------------------------------------
 

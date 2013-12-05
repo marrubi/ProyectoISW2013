@@ -45,7 +45,7 @@ class Funcionario extends CI_Controller{
     public function estadoInventario(){
         $this->load->view('inventario');
     }
-    public function estadoInventario(){
+    public function prestamoInventario(){
         $this->load->view('prestamo');
     }
 }

@@ -5,14 +5,6 @@
 	color: #A0A0A0;
 }
 
-body{
-	background-color: #FCFCFC;
-	width: 1024px;
-	height: 600px;
-	margin-right: auto;
-	margin-left: auto;
-}
-
 p{
 	text-align: center;
 }
@@ -46,6 +38,18 @@ td a{
 	text-decoration: none;
 	color: #D5D500;
 }
+
+/* Clase del contenedor total*/
+
+.contenedor-total{
+	width: 1024px;
+	height: auto;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+
+
 /* Clases Encabezado */
 
 .encabezado{
@@ -87,6 +91,7 @@ td a{
 
 .image{
 	display: block;
+	float: left;
 	padding-left: 10px;
 	width: 303px;
 	height: 142px;
@@ -101,6 +106,7 @@ td a{
 
 }
 .menu{
+	position: relative;
 	font-size: 12px;
 	display: block;
 	width: 180px;
@@ -174,6 +180,10 @@ td a{
 	border-left: 1px solid #D8D8D8;
 }
 
+.centrar-mensaje{
+	text-align: center;
+	display: block;
+}
 .td{
 	background: #757575;
 	color: #FFFFFF;
