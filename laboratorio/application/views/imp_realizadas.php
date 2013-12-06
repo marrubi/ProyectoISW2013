@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Agregar Impresión</title>
+		<title>Impresiones</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/styleperf.css');?>">
 		<link rel="icon" type="image/png" href="<?php echo base_url('assets/img/comp.png');?>">
@@ -43,36 +43,7 @@
 					</li>
 			</nav>
 			<section class="pantalla">
-				<div class="cont-form-agrimp">
-					<?php 
-
-						$label = array('class'=>'lab');
-						$input = array('name'=>'rut','class'=>'box');
-						$input2 = array('name'=>'hojas','class'=>'box',);
-						$submit = array('name'=>'submit', 'id'=>'submit','value'=>'Enviar');
-					?>
-					<?= form_open('funcionario/validar_agr') ?>
-						<?= form_label('Rut:','rut', $label) ?>
-						<?= "<br/>"; ?>
-						<?= form_input($input) ?>
-						<?= "<br/><br/>"; ?>
-						<?php 
-							$hoja = array(
-								'1'=>'Oficio',
-								'2'=>'Carta',
-								'3'=>'Otro',
-							);
-							echo form_dropdown("Tipo de hoja",$hoja);
-						?>
-						<?= "<br/><br/>" ?>
-						<?= form_label('Cantidad de Hojas:','hojas', $label) ?>
-						<?= "<br/>"; ?>
-						<?= form_input($input2) ?>
-						<?='<div id="boton">' ?>
-						<?= form_submit($submit) ?>
-						<?= '</div><br/>'; ?>
-					<?= form_close() ?>
-				</div>
+				
 			</section>
 		</section>
 		<footer class="footer">

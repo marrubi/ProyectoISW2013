@@ -48,8 +48,6 @@ td a{
 	margin-left: auto;
 }
 
-
-
 /* Clases Encabezado */
 
 .encabezado{
@@ -173,6 +171,7 @@ td a{
 
 .pantalla{
 	display: block;
+	overflow: scroll;
 	width: auto;
 	height: 450px;
 	width: auto;
@@ -190,6 +189,10 @@ td a{
 	border-top: 1px solid #A3A3A3;
 }
 
+.cont-form-agrimp{
+	
+}
+
 #pag{
 	display: block;
 	width: 837px;
@@ -204,6 +207,7 @@ td a{
 /* Clases del Footer */
 
 .footer{
+	clear: both;
 	font-size: 12px;
 	margin: 0;
 	padding: 5px;

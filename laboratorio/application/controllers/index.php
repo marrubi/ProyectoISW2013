@@ -27,8 +27,6 @@ class Index extends CI_Controller{
         $this->form_validation->set_message('max_length','Largo de campo %s mayor al determinado');
         $this->form_validation->set_message('required','Ingrese %s');
 
-        $variable = $this->form_validation->run();
-
         //Valida datos en bd
         if($this->form_validation->run() == FALSE){
         	$this->load->view('index');

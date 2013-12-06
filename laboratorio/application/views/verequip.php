@@ -50,12 +50,14 @@
 					else{
 						echo "<table>";
 						echo "<tr>";
+						echo "<td class='td'>Referencia</td>"; 
 						echo "<td class='td'>Serial</td>";
 						echo "<td class='td'>Estado</td>";
 						echo "<td class='td'>Disponibilidad</td>";
 						echo "</tr>";
 						foreach($equipos as $row){					
 							echo "<tr>";
+							echo "<td>".$row['referencia']."</td>";
 							echo "<td>".$row['serie']."</td>";
 							if($row['estado-fk'] == '2'){
 								echo "<td>Inhabilitado"."    |    "."<a href='#'>Habilitar</a></td>";
@@ -71,6 +73,21 @@
 							}
 							echo "</tr>";
 						}
+						echo "</table>";
+						echo "<br/><br/>";
+						echo "<table>";
+						echo "<tr>";
+						echo "<td class='td'>Total Disponibles</td>";
+						echo "<td class='td'>Total Ocupados</td>"; 
+						echo "<td class='td'>Total Habilitados</td>";
+						echo "<td class='td'>Total Inhabilitados</td>";
+						echo "</tr>";
+						echo "<tr>";
+						echo "<td>".$sumadisponibles."</td>";
+						echo "<td>".$sumanodisponibles."</td>"; 
+						echo "<td>".$sumahabilitados."</td>";
+						echo "<td>".$sumainhabilitados."</td>";
+						echo "</tr>";
 						echo "</table>";
 					}
 				?>

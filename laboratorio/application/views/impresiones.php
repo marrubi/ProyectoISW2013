@@ -43,9 +43,18 @@
 					</li>
 			</nav>
 			<section class="pantalla">
-				<?php
-					
+				<?php 
+
+					$label = array('class'=>'lab');
+					$input = array('name'=>'rut','class'=>'box');
+					$input2 = array('name'=>'hojas','class'=>'box',);
+					$submit = array('name'=>'submit', 'id'=>'submit','value'=>'Enviar');
 				?>
+				<?= form_open('funcionario/validar_agr') ?>
+					<!-- Aquí se debe implementar dos DateTimePicker(!!!JQUERY!!!!)(Para indicar intervalos de tiempo), un cuadro de Rut, un Filtro, y un Botón-->
+					<?= form_submit($submit) ?>
+					<?= '</div><br/>'; ?>
+				<?= form_close() ?>
 			</section>
 		</section>
 		<footer class="footer">
