@@ -10,24 +10,24 @@
 	<body>
 		<div class="contenido-total">
 			<header class="encabezado">
-				<a class="image" href="<?php echo base_url();?>"><img border=0 src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
-				<img border=0 src="<?php echo base_url('assets/img/logo-estatales2.jpg');?>"/>
+				<a class="image" href="<?php echo base_url();?>"><img alt="logoutem" src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
+				<img alt="logocna" src="<?php echo base_url('assets/img/logo-estatales2.jpg');?>"/>
 			</header>
 			<section class="content">
 				<article class="text">
 					<h2>Bienvenidos al portal del laboratorio de la UTEM</h2>
-					El acceso al sistema está restringido para estudiantes, académicos,<br/>
-					funcionarios y administradores de la Escuela de Informática de la<br/>
-					Universidad Tecnológica Metropolitana del Estado de Chile.<br/><br/>
-					Ingrese Rut y Contraseña para iniciar.
+					El acceso al sistema está restringido para funcionarios y administradores<br/>
+					de la Escuela de Informática de la Universidad Tecnológica Metropolitana<br/>
+					del Estado de Chile.<br/><br/>
+					Ingrese Rut y Contraseña para iniciar sesión.
 				</article>
 				<article class="login">
 				<div class="form">
 					<?php echo form_open('index/validar') ?>
 					<div id="contenido">
 						<?php $lab = array('class'=>'lab',);
-						  	  $box = array('name'=>'rut','class'=>'box',);
-						  	  $pass = array('name'=>'password','class'=>'box',);
+						  	  $box = array('name'=>'rut','class'=>'box');
+						  	  $pass = array('name'=>'password','class'=>'box');
 						  	  $submit = array('name'=>'submit', 'id'=>'submit','value'=>'Ingresar');
 							  echo form_label('Rut','rut', $lab);
 							  echo '<br/>';
@@ -49,7 +49,7 @@
 			</section>
 			<footer class="footer">
 				<ul>
-					<li><a href="<?php echo base_url('index.php/acerca_de');?>">Acerca del sitio</a></li>
+					<li><a href="<?php echo base_url().'index.php/index/acercade';?>">Acerca del sitio</a></li>
 				</ul>
 				<br><p>Dieciocho 161 - Santiago, Chile. Metro Moneda - Fono: 2787 7500</p>
 			</footer>

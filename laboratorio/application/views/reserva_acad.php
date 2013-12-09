@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Agregar Impresión</title>
+		<title>Reservas Académicos</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/styleperf.css');?>">
 		<link rel="icon" type="image/png" href="<?php echo base_url('assets/img/comp.png');?>">
@@ -34,13 +34,15 @@
 						</li>
 						<li><a href="">Impresiones</a>
 							<ul>
-								<li><a href="<?= base_url('index.php/funcionario/imp')?>">Impresiones Realizadas</a></li>
-								<li><a href="<?= base_url('index.php/funcionario/ag_imp')?>">Agregar Impresión</a></li>
+								<li><a href="">Impresiones Realizadas</a></li>
+								<li><a href="#">Agregar Impresión</a></li>
 							</ul>
 						</li>
 						<li><a href="">Inventario</a>
-							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Agregar Préstamo de Inventario</a></li>
+							<ul>
+								<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
+								<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Agregar Préstamo de Inventario</a></li>
+							</ul>
 						</li>
 						<li><a href="">Alumno</a>
 							<ul>
@@ -53,38 +55,48 @@
 								<li><a href="">Académico</a></li>
 							</ul>
 						</li>
+					</ul>
 				</nav>
 				<section class="pantalla">
-					<div class="cont-form-agrimp">
-						<?php 
-
-							$label = array('class'=>'lab');
-							$input = array('name'=>'rut','class'=>'box');
-							$input2 = array('name'=>'hojas','class'=>'box',);
-							$submit = array('name'=>'submit', 'id'=>'submit','value'=>'Enviar');
-						?>
-						<?= form_open('funcionario/validar_agr') ?>
-							<?= form_label('Rut:','rut', $label) ?>
-							<?= "<br/>"; ?>
-							<?= form_input($input) ?>
-							<?= "<br/><br/>"; ?>
-							<?php 
-								$hoja = array(
-									'1'=>'Oficio',
-									'2'=>'Carta',
-									'3'=>'Otro',
-								);
-								echo form_dropdown("Tipo de hoja",$hoja);
-							?>
-							<?= "<br/><br/>" ?>
-							<?= form_label('Cantidad de Hojas:','hojas', $label) ?>
-							<?= "<br/>"; ?>
-							<?= form_input($input2) ?>
-							<?='<div id="boton">' ?>
-							<?= form_submit($submit) ?>
-							<?= '</div><br/>'; ?>
-						<?= form_close() ?>
-					</div>
+					<h3>Reservas Realizadas</h3>
+					<?php
+						if($reservas == false){
+							echo "<div class='centrar-mensaje'>No hay reservas pedidas</div>";
+						}
+						else{
+							echo "<table>";
+							echo "<tr>";
+							echo "<td class='td'>Académico</td>";
+							echo "<td class='td'>Estado</td>";
+							echo "<td class='td'>Período</td>";
+							echo "<td class='td'>Desde</td>";
+							echo "<td class='td'>Hasta</td>";
+							echo "<td class='td'>Editar</td>";
+							echo "<td class='td'>Eliminar</td>";
+							echo "</tr>";
+							$cont = 1;
+							foreach($reservas as $row){
+								echo "<tr>";
+								echo "<td>".$row['academico-fk']."</td>";
+								if($row['estado'] == '0'){
+									echo "<td>Activa</td>";
+								}
+								else{
+									echo "<td>Anulada</td>";
+								}
+								echo "<td>Periodo</td>";
+								echo "<td>Desde</td>";
+								echo "<td>Hasta</td>";
+								echo "<td><a href='edit_reservas'>Editar</a></td>";
+								echo "<td><a href=''>Eliminar</a></td>";
+								echo "</tr>";
+								$cont++;
+							}
+							echo "</table>";
+						}					
+					?>
+					<br/><br/>
+					<a class="link-add" href="<?= base_url('index.php/funcionario/add_reservas'); ?>">Nueva Reserva</a>
 				</section>
 			</section>
 			<footer class="footer">

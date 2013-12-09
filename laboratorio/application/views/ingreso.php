@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Agregar Impresión</title>
+		<title>Perfil Funcionario</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/styleperf.css');?>">
 		<link rel="icon" type="image/png" href="<?php echo base_url('assets/img/comp.png');?>">
@@ -16,7 +16,7 @@
 					</ul>
 				</nav>
 				<a class="image"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
-				<img border=0 src="<?php echo base_url('assets/img/logo-estatales2.jpg');?>"/>
+				<img id="im2" src="<?php echo base_url('assets/img/logo-estatales2.jpg');?>"/>
 			</header>
 			<section class="content">
 				<nav class="menu">
@@ -39,8 +39,10 @@
 							</ul>
 						</li>
 						<li><a href="">Inventario</a>
-							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Agregar Préstamo de Inventario</a></li>
+							<ul>
+								<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
+								<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Agregar Préstamo de Inventario</a></li>
+							</ul>
 						</li>
 						<li><a href="">Alumno</a>
 							<ul>
@@ -53,38 +55,68 @@
 								<li><a href="">Académico</a></li>
 							</ul>
 						</li>
+					</ul>
 				</nav>
 				<section class="pantalla">
-					<div class="cont-form-agrimp">
-						<?php 
+					<?= form_open('funcionario/val_ing_al'); ?>
+						<?= form_label('Rut','rut'); ?>
+						<?= form_input('rut'); ?>
 
-							$label = array('class'=>'lab');
-							$input = array('name'=>'rut','class'=>'box');
-							$input2 = array('name'=>'hojas','class'=>'box',);
-							$submit = array('name'=>'submit', 'id'=>'submit','value'=>'Enviar');
+						<?= form_label('Laboratorio','lab'); ?>
+
+						<?php
+
+							$laboratorios = array(
+								'1' => 'Laboratorio 1',
+								'2' => 'Laboratorio 2',
+								'3' => 'Laboratorio 3',
+								'4' => 'Laboratorio 4',
+								'5' => 'Laboratorio 5',
+								'6' => 'Laboratorio 6',
+								'7' => 'Laboratorio 7',
+								'8' => 'Laboratorio 8',
+							);
+							echo form_dropdown("Laboratorio", $laboratorios);
 						?>
-						<?= form_open('funcionario/validar_agr') ?>
-							<?= form_label('Rut:','rut', $label) ?>
-							<?= "<br/>"; ?>
-							<?= form_input($input) ?>
-							<?= "<br/><br/>"; ?>
-							<?php 
-								$hoja = array(
-									'1'=>'Oficio',
-									'2'=>'Carta',
-									'3'=>'Otro',
-								);
-								echo form_dropdown("Tipo de hoja",$hoja);
-							?>
-							<?= "<br/><br/>" ?>
-							<?= form_label('Cantidad de Hojas:','hojas', $label) ?>
-							<?= "<br/>"; ?>
-							<?= form_input($input2) ?>
-							<?='<div id="boton">' ?>
-							<?= form_submit($submit) ?>
-							<?= '</div><br/>'; ?>
-						<?= form_close() ?>
-					</div>
+						<?= "<br/>"?>
+						<?= form_submit('enviar','Enviar') ?>
+					<?= form_close(); ?>
+
+					<?php
+						if($equipos != false){
+							echo "<table id='equipos'>";
+							echo "<tr>";
+							echo "<td class='td'>Referencia</td>"; 
+							echo "<td class='td'>Serial</td>";
+							echo "<td class='td'>Estado</td>";
+							echo "<td class='td'>Disponibilidad</td>";
+							echo "<td class='td'>Opción</td>";
+							echo "</tr>";
+							foreach($equipos as $row){					
+								echo "<tr>";
+								echo "<td>".$row['referencia']."</td>";
+								echo "<td>".$row['serie']."</td>";
+								if($row['estado-fk'] == '2'){
+									echo "<td>Inhabilitado"."    |    "."<a href='#'>Habilitar</a></td>";
+								}
+								else{
+									echo "<td>Habilitado"."    |    "."<a href='#'>Inhabilitar</a></td>";
+								}
+								if($row['uso-fk'] == '1'){
+									echo "<td>Libre</td>";
+								}
+								else{
+									echo "<td>Ocupado</td>";
+								}
+								echo "<td><input type='button' value='Agregar'/></td>";
+								echo "</tr>";
+							}
+							echo "</table>";
+						}
+						else{
+							echo "No se ha seleccionado opción";
+						}
+					?>
 				</section>
 			</section>
 			<footer class="footer">

@@ -15,6 +15,10 @@ class Index extends CI_Controller{
 		$this->load->view('index');
 	}
 
+	public function acercade(){
+		$this->load->view('acerca_de');
+	}
+
 	//Validación del formulario
 	public function validar(){
 

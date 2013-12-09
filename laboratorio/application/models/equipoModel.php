@@ -21,6 +21,22 @@ class EquipoModel extends CI_Model{
 		}
 	}
 
+	public function getDisponibles($num){
+		$this->db->select('*');
+		$this->db->from('tb-equipo');
+		$this->db->where('laboratorio-fk',$num);
+		$this->db->where('uso-fk','1');
+		$this->db->order_by('referencia');
+
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0){
+			return $query->result_array();
+		}
+		else{
+			return false;
+		}
+	}
 	public function getSumaDisponibles($num){
 		$this->db->select('*');
 		$this->db->from('tb-equipo');

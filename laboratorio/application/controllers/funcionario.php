@@ -11,8 +11,9 @@ class Funcionario extends CI_Controller{
         $this->load->model('laboratorioModel');
         $this->load->model('tipoHojaModel');
         $this->load->model('equipoModel');
-        $this->load->library('pagination');
-        $this->load->library('calendar');
+        $this->load->model('estudianteModel');
+        $this->load->model('reservaModel');
+        $this->load->model('academicoModel');
 	}
 
     //Redirecciones
@@ -28,6 +29,8 @@ class Funcionario extends CI_Controller{
         }
     }
 
+    /* ----------          ESTADO DE LABORATORIOS          ---------- */
+
     //Ver laboratorios
     public function verLabs(){
         $data = array(
@@ -37,8 +40,6 @@ class Funcionario extends CI_Controller{
         $this->load->view('verlab',$data);
     }
 
-
-    /* Equipos */
     //Ver equipos de laboratorios
     public function verEq($numLab){
         $data = array(
@@ -51,6 +52,8 @@ class Funcionario extends CI_Controller{
         $this->load->view('verequip',$data);
     }
 
+    /* ----------          INVENTARIO PARA PRESTAR          ---------- */
+
     //Ver estado de inventario
     public function estadoInventario(){
         $this->load->view('inventario');
@@ -60,6 +63,8 @@ class Funcionario extends CI_Controller{
     public function prestamoInventario(){
         $this->load->view('prestamo');
     }
+
+     /* ----------          IMPRESIONES         ---------- */
 
     ////Ver imnpresiones
     public function imp(){
@@ -86,7 +91,97 @@ class Funcionario extends CI_Controller{
         echo "Funcion del controlador para mostrar impresiones desde X hasta Y fecha";
     }
 
+     /* ----------          INGRESO-SALIDA ALUMNOS          ---------- */
 
+     //Ingreso Alumnos
+    public function ingresoAlumno(){
+        $this->load->view('ingreso');
+    }
+
+    //Salida Alumnos
+    public function salidaAlumno(){
+        $this->load->view('salida');
+    }
+
+    //Validar el ingreso a alumnos
+    public function val_ing_al(){
+        $rut = $this->input->post('rut');
+
+        $lab = $this->input->post('Laboratorio');
+        $data = array(
+            'equipos' => $this->equipoModel->getDisponibles($lab),
+        );
+        $this->load->view('ingreso',$data);
+    }
+
+    //Asignar equipo a alumno
+    public function asignar_equipo($numequipo){
+
+    }
+
+    /* ----------          RESERVAS ACADÉMICOS          ---------- */
+
+    //Visualizar Reservas Realizadas
+    public function ver_reservas(){
+        $data = array(
+            'reservas' => $this->reservaModel->getReservas()        
+        );
+        $this->load->view('reserva_acad',$data);
+    }
+
+    //Agregar Reservas
+    public function add_reservas(){
+        $this->load->view('agr_reserva_acad');
+    }
+
+    public function validar_add_reservas(){
+        
+        $this->form_validation->set_rules('rutacad','Rut Académico','required|trim|xss_clean|callback_validaracademico');
+        $this->form_validation->set_rules('fecha','Fecha de reserva','required');
+        $this->form_validation->set_message('required','Ingrese %s');
+
+
+       
+        if($this->form_validation->run() == FALSE){
+            $this->load->view('agr_reserva_acad');
+        }
+        else{
+            echo 'true';
+        }
+        
+    }
+
+    public function validaracademico(){
+        $rutac = $this->input->post('rutacad');
+        if($this->academicoModel->consultar_academico($rutac)){
+            $periodo = $this->input->post('periodo');
+            $fecha = $this->input->post('fecha');
+            $asignatura = $this->input->post('asignatura');
+            $laboratorio = $this->input->post('laboratorio');
+        }
+        else{
+            $this->form_validation->set_message('validaracademico','El rut ingresado no existe en la Base de Datos');
+            return false;
+        }
+    }
+
+    //Editar Reservas realizadas
+    public function edit_reservas(){
+        echo "Pantalla reservada para edición de reservas";
+    }
+
+    public function validar_edit_reservas(){
+        
+    }
+    //Eliminar Reservas realizadas
+    public function del_reservas(){
+
+    }
+
+    public function validar_del_reservas(){
+        
+    }
+    /* ----------          SALIR DEL SISTEMA          ---------- */
      //Finalizar sesión
     public function logout(){
         $this->session->unset_userdata('logged_in');

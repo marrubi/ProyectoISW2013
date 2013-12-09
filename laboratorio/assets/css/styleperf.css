@@ -7,10 +7,10 @@
 
 p{
 	text-align: center;
+	font-size: 10px;
 }
 
 table{
-	display: block;
 	border-collapse:collapse;
 	text-align: center;
 	margin-right: auto;
@@ -39,11 +39,14 @@ td a{
 	color: #D5D500;
 }
 
-/* Clase del contenedor total*/
+h3{
+	padding: 5px;
+	margin-left: 30px;
+}
+/* Contenedor de toda la página */
 
 .contenedor-total{
 	width: 1024px;
-	height: auto;
 	margin-right: auto;
 	margin-left: auto;
 }
@@ -51,7 +54,7 @@ td a{
 /* Clases Encabezado */
 
 .encabezado{
-	border: 1px solid #D8D8D8;
+	border: 1px solid #A0A0A0;
 	padding: 0;
 }
 
@@ -99,8 +102,8 @@ td a{
 
 .content{
 	height: 450px;
-	border-left: 1px solid #D8D8D8;
-	border-right: 1px solid #D8D8D8;
+	border-left: 1px solid #A0A0A0;
+	border-right: 1px solid #A0A0A0;
 
 }
 .menu{
@@ -172,11 +175,12 @@ td a{
 .pantalla{
 	display: block;
 	overflow: scroll;
-	width: auto;
+	width: 840px;
 	height: 450px;
-	width: auto;
 	float: left;
-	border-left: 1px solid #D8D8D8;
+	margin-left: auto;
+	margin-right: auto;
+	border-left: 1px solid #A0A0A0;
 }
 
 .centrar-mensaje{
@@ -193,9 +197,13 @@ td a{
 	
 }
 
+.titulo-form{
+	text-align: center;
+	height: 30px;
+	background: red;
+}
 #pag{
 	display: block;
-	width: 837px;
 	margin-right: 0;
 	margin-left: auto;
 	height: 445px;
@@ -204,12 +212,84 @@ td a{
 	margin: none;
 }
 
+#ventana-form{
+	display:block;
+	height: 150px;
+	background-color: #333333;
+	margin-left: 100px;
+	margin-right: 100px;
+
+}
+
+#submit{
+	color: #eeeeee;
+	display: block;
+	text-align: center;
+	padding: 10px;
+	width: 100px;
+	margin-right: auto;
+	margin-left: auto;
+	border: 0;
+	background: linear-gradient(180deg,#00E500 10%, #007500 90%);
+}
+
+#submit:hover{
+	cursor: pointer;
+	background: linear-gradient(180deg,#88E588 10%, #00CC00 90%);
+}
+
+/* Exclusivo de reserva de laboratorios */ 
+
+.ventana-reserva{
+	border: 1px solid #AAAAAA;
+	font-size: 12px;
+	width: 400px;
+	height: auto;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.ventana-reserva-titulo{
+	width: auto;
+	height: auto;
+	margin: 0;
+	padding: 15px;
+	outline: 0;
+	background: #767676;
+	color: white;
+}
+
+.ventana-reserva-form{
+	width: auto;
+	height: auto;
+	margin: 0;
+	padding: 15px;
+	outline: 0;
+}
+
+.link-add{
+	border: 0;
+	padding: 8px 15px 8px 15px;
+	text-decoration: none;
+	margin-left: 50px;
+	color: #eeeeee;
+	background: linear-gradient(180deg,#00E500 10%, #007500 90%);
+}
+
+.link-add:hover{
+	background: linear-gradient(180deg,#88E588 10%, #00CC00 90%);
+}
+}
 /* Clases del Footer */
 
 .footer{
-	clear: both;
-	font-size: 12px;
 	margin: 0;
 	padding: 5px;
-	border: 1px solid #D8D8D8;
+}
+
+.footer p{
+	font-size: 12px;
+	border: 1px solid #A0A0A0;
+	padding: 15px;
+	margin: 0;
 }

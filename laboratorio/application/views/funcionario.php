@@ -12,7 +12,6 @@
 			<header class="encabezado">
 				<nav class="header">
 					<ul>
-						<span>Hola <?= $rut?></span>
 						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
@@ -40,8 +39,21 @@
 							</ul>
 						</li>
 						<li><a href="">Inventario</a>
-							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Agregar Préstamo de Inventario</a></li>
+							<ul>
+								<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
+								<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Agregar Préstamo de Inventario</a></li>
+							</ul>
+						</li>
+						<li><a href="">Alumno</a>
+							<ul>
+								<li><a href="<?= base_url('index.php/funcionario/ingresoAlumno')?>">Ingreso de alumno</a></li>
+								<li><a href="<?= base_url('index.php/funcionario/salidaAlumno')?>">Salida de alumno</a></li>
+							</ul>
+						</li>
+						<li><a href="">Reservas</a>
+							<ul>
+								<li><a href="<?= base_url('index.php/funcionario/ver_reservas'); ?>">Académico</a></li>
+							</ul>
 						</li>
 					</ul>
 				</nav>
