@@ -66,9 +66,11 @@
 						else{
 							echo "<table>";
 							echo "<tr>";
-							echo "<td class='td'>Académico</td>";
+							echo "<td class='td'>Rut Académico</td>";
+							echo "<td class='td'>Nombre Académico</td>";
 							echo "<td class='td'>Estado</td>";
-							echo "<td class='td'>Período</td>";
+							echo "<td class='td'>Laboratorio</td>";
+							echo "<td class='td'>Periodo</td>";
 							echo "<td class='td'>Desde</td>";
 							echo "<td class='td'>Hasta</td>";
 							echo "<td class='td'>Editar</td>";
@@ -77,18 +79,29 @@
 							$cont = 1;
 							foreach($reservas as $row){
 								echo "<tr>";
-								echo "<td>".$row['academico-fk']."</td>";
+								foreach($academicos as $rw){
+									if($row['academico-fk'] == $rw['id_profesor']){
+										echo "<td>".$rw['rut']."</td>";
+										echo "<td>".$rw['nombre']."</td>";
+									}
+								}
 								if($row['estado'] == '0'){
 									echo "<td>Activa</td>";
 								}
 								else{
 									echo "<td>Anulada</td>";
 								}
-								echo "<td>Periodo</td>";
-								echo "<td>Desde</td>";
-								echo "<td>Hasta</td>";
-								echo "<td><a href='edit_reservas'>Editar</a></td>";
-								echo "<td><a href=''>Eliminar</a></td>";
+								echo "<td>".$row['lab-fk']."</td>";
+								echo "<td>".$row['periodo-fk']."</td>";
+								foreach($periodos as $rs){
+									if($row['periodo-fk'] == $rs['id_per']){
+										echo "<td>".$rs['inicio']."</td>";
+										echo "<td>".$rs['fin']."</td>";
+									}
+								}
+								
+								echo "<td><a href='edit_reserva/".$row['id_res']."'>Editar</a></td>";
+								echo "<td><a href='del_reserva/".$row['id_res']."'>Eliminar</a></td>";
 								echo "</tr>";
 								$cont++;
 							}

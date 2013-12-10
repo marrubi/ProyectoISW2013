@@ -14,6 +14,7 @@ class Funcionario extends CI_Controller{
         $this->load->model('estudianteModel');
         $this->load->model('reservaModel');
         $this->load->model('academicoModel');
+        $this->load->model('periodoModel');
 	}
 
     //Redirecciones
@@ -124,7 +125,9 @@ class Funcionario extends CI_Controller{
     //Visualizar Reservas Realizadas
     public function ver_reservas(){
         $data = array(
-            'reservas' => $this->reservaModel->getReservas()        
+            'reservas' => $this->reservaModel->getReservas(),
+            'academicos' => $this->academicoModel->getAcademicos(),
+            'periodos'=> $this->periodoModel->getPeriodos(),
         );
         $this->load->view('reserva_acad',$data);
     }
@@ -134,30 +137,35 @@ class Funcionario extends CI_Controller{
         $this->load->view('agr_reserva_acad');
     }
 
-    public function validar_add_reservas(){
+    public function validar_add_reserva(){
         
         $this->form_validation->set_rules('rutacad','Rut Académico','required|trim|xss_clean|callback_validaracademico');
-        $this->form_validation->set_rules('fecha','Fecha de reserva','required');
+        $this->form_validation->set_rules('fec','Fecha de reserva','required');
         $this->form_validation->set_message('required','Ingrese %s');
 
-
-       
         if($this->form_validation->run() == FALSE){
             $this->load->view('agr_reserva_acad');
         }
         else{
-            echo 'true';
+           redirect('funcionario/ver_reservas');
         }
         
     }
 
     public function validaracademico(){
+
         $rutac = $this->input->post('rutacad');
         if($this->academicoModel->consultar_academico($rutac)){
-            $periodo = $this->input->post('periodo');
-            $fecha = $this->input->post('fecha');
-            $asignatura = $this->input->post('asignatura');
-            $laboratorio = $this->input->post('laboratorio');
+            
+            $array = array(
+                'academico-fk'=> $this->academicoModel->getID($rutac),
+                'fecha_dest'=> $this->input->post('fec'),
+                'lab-fk'=> $this->input->post('Laboratorio'),
+                'periodo-fk'=> $this->input->post('Periodo'),
+                'asignatura-fk'=> $this->input->post('Asignatura'),
+                );
+            $this->reservaModel->setReserva($array);
+            return true;
         }
         else{
             $this->form_validation->set_message('validaracademico','El rut ingresado no existe en la Base de Datos');
@@ -166,19 +174,28 @@ class Funcionario extends CI_Controller{
     }
 
     //Editar Reservas realizadas
-    public function edit_reservas(){
-        echo "Pantalla reservada para edición de reservas";
+    public function edit_reserva($id){
+        $this->load->view('ed_reserva_acad');
     }
 
-    public function validar_edit_reservas(){
+    public function validar_edit_reserva(){
         
     }
     //Eliminar Reservas realizadas
-    public function del_reservas(){
+    public function del_reserva($id){
 
+        $this->reservaModel->delReserva($id);
+
+        $data = array(
+            'reservas' => $this->reservaModel->getReservas(),
+            'academicos' => $this->academicoModel->getAcademicos(),
+            'periodos'=> $this->periodoModel->getPeriodos(),
+        );
+
+        redirect('funcionario/ver_reservas');
     }
 
-    public function validar_del_reservas(){
+    public function validar_del_reserva(){
         
     }
     /* ----------          SALIR DEL SISTEMA          ---------- */

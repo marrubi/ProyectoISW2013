@@ -64,7 +64,7 @@
 							$atr = array(
 								'class'=>'ventana-reserva-form',
 							); 
-							echo form_open('funcionario/validar_add_reservas', $atr);
+							echo form_open('funcionario/validar_add_reserva', $atr);
 								echo form_label('Rut Académico:','rutacad');
 								echo "<br/>";
 								echo form_input('rutacad');
@@ -101,7 +101,7 @@
 									'26'=> 'Teoría de Autómatas',	
 									'27'=> 'Electivo de Formación Especializada',
 								);
-								echo form_dropdown('asignatura',$asig);
+								echo form_dropdown('Asignatura',$asig);
 								echo "<br/>";
 								echo form_label('Laboratorio:','labacad');
 								echo "<br/>";
@@ -115,14 +115,14 @@
 									'7'=> '7',
 									'8'=> '8',
 								);
-								echo form_dropdown('laboratorio',$labs);
+								echo form_dropdown('Laboratorio',$labs);
 								echo "<br/>";
-								echo form_label('Fecha Destino: ','fecha');
+								echo form_label('Fecha Destino:','fecha');
 								echo "<br/>";
-								echo "<input type='date' name='fecha'>";
+								echo "<input type='date' name='fec'>";
 								echo "<br/>";
 								echo form_error('fecha');
-								echo form_label('Período: ','periodo');
+								echo form_label('Período:','periodo');
 								echo "<br/>";
 								$per = array(
 									'1'=> 'I - Desde 8:15 Hasta 9:35',
