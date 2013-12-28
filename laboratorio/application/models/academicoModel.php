@@ -51,5 +51,22 @@ class AcademicoModel extends CI_Model{
 			return false;
 		}
 	}
+
+	public function getRut($id){
+		$this->db->select('*');
+		$this->db->from('tb-profesor');
+		$this->db->where('id_profesor',$id);
+		$this->db->limit(1);
+
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0){
+			$row = $query->row();
+			return $row->rut;
+		}
+		else{
+			return false;
+		}
+	}
 }
 ?>

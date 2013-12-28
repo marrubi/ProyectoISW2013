@@ -22,26 +22,10 @@
 			<section class="content">
 				<nav class="menu">
 					<ul class="list-menu">
-						<li><a href="">Laboratorios</a>
+						<li><a href=""></a>
 							<ul>
-								<li><a href="<?= base_url('index.php/funcionario/verLabs')?>">Estado de Laboratorios</a></li>
-								<li><a href="<?= base_url('index.php/funcionario/verEq/1')?>">Laboratorio 1</a></li>
-								<li><a href="<?= base_url('index.php/funcionario/verEq/2')?>">Laboratorio 2</a></li>
-								<li><a href="<?= base_url('index.php/funcionario/verEq/3')?>">Laboratorio 3</a></li>
-								<li><a href="<?= base_url('index.php/funcionario/verEq/4')?>">Laboratorio 4</a></li>
-								<li><a href="<?= base_url('index.php/funcionario/verEq/5')?>">Laboratorio 5</a></li>
-								<li><a href="<?= base_url('index.php/funcionario/verEq/6')?>">Laboratorio 6</a></li>
+								<li></li>
 							</ul>
-						</li>
-						<li><a href="">Impresiones</a>
-							<ul>
-								<li><a href="">Impresiones Realizadas</a></li>
-								<li><a href="">Agregar Impresión</a></li>
-							</ul>
-						</li>
-						<li><a href="">Inventario</a>
-							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Agregar Préstamo de Inventario</a></li>
 						</li>
 					</ul>
 				</nav>

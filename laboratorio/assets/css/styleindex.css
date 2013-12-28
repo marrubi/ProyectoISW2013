@@ -86,7 +86,7 @@ p{
 .content{
 	border-left: 1px solid #A0A0A0;
 	border-right: 1px solid #A0A0A0;
-	height: 400px;
+	height: 420px;
 }
 
 .text{
@@ -190,6 +190,7 @@ p{
 
 .footer p{
 	padding: 10px;
+	margin-top: 12px;
 	font-size: 12px;
 }
 

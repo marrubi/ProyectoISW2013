@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/laboratorio';
+$config['base_url']	= 'http://localhost/laboratorio2';
 
 /*
 |--------------------------------------------------------------------------

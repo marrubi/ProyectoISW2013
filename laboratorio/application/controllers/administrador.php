@@ -29,32 +29,5 @@ class Administrador extends CI_Controller{
         session_destroy();
         redirect('administrador', 'refresh');
     }
-
-    //Ver laboratorios
-    public function verLabs(){
-        $data = array(
-            'titulo' => 'Laboratorios',
-            'laboratorios' => $this->laboratorioModel->getLabs()        
-        );
-        $this->load->view('verlab',$data);
-    }
-
-    //Ver equipos
-    public function verEq($numLab){
-        $data = array(
-            'equipos' => $this->equipoModel->getEquip($numLab)        
-        );
-        $this->load->view('verequip',$data);
-    }
-
-    //Ver inventario
-    public function estadoInventario(){
-        $this->load->view('inventario');
-    }
-
-    //Ver Préstamo Inventario
-    public function prestamoInventario(){
-        $this->load->view('prestamo');
-    }
 }
 ?>
