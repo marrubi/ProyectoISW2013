@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Agregar Impresión</title>
+		<title>Impresiones</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/styleperf2.css');?>">
 		<link rel="icon" type="image/png" href="<?php echo base_url('assets/img/comp.png');?>">
-		<script src="<?php echo base_url('assets/js/jquery.js');?>"></script>
 	</head>
 	<body>
 		<div class="contenedor-total">
 			<header class="encabezado">
 				<nav class="header">
 					<ul>
-						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
+						Bienvenido <li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
 				<a class="image"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
@@ -33,7 +32,7 @@
 					</li>
 					<li><a href="">Impresiones</a>
 						<ul>
-							<li><a href="<?= base_url('index.php/funcionario/imp')?>">Impresiones Realizadas</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/impresiones')?>">Impresiones Realizadas</a></li>
 							<li><a href="<?= base_url('index.php/funcionario/ag_imp')?>">Agregar Impresión</a></li>
 						</ul>
 					</li>
@@ -51,49 +50,71 @@
 					</li>
 					<li><a href="">Reservas</a>
 						<ul>
-							<li><a href="<?= base_url('index.php/funcionario/ver_reservas'); ?>">Académico</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/reservas'); ?>">Académico</a></li>
 						</ul>
 					</li>
 			</nav>
 			<section class="content">
-				<article class="ventana-agr-imp">
-					<div class="ventana-agr-imp-titulo">Agregar Impresión</div>
+				<article class="ventana-imp">
+					<div class="ventana-imp-titulo">Consultar por intervalos de tiempo</div>
 					<?php 
 						$atr = array(
-							'class'=>'ventana-agr-imp-form',
+							'class'=>'ventana-imp-form',
 						);
-						$label = array('class'=>'lab');
-						$submit = array('name'=>'submit', 'id'=>'submit','value'=>'Agregar');
-					?>
-					<?= form_open('funcionario/validar_agr_imp', $atr) ?>
-						<?= form_label('Rut:','rutal') ?>
-						<?= "<br/>"; ?>
-						<?= form_input('rut',$rut_data) ?>
-						<?= "<br/>"; ?>
-						<?= form_error('rut') ?>
-						<?= "<br/>"; ?>
-						<?= form_label('Tamaño de Papel:','tipoh', $label) ?>
-						<?= "<br/>"; ?>
-						<?php 
-							$hoja = array(
-								'1'=>'Tamaño Oficio ó Folio - 21,59cm x 35,56cm',
-								'2'=>'Tamaño Carta(Letter) - 21,59cm x 27,94cm',
-								'3'=>'Otro Tipo',
+						echo form_open('funcionario/validar_fechas_impresiones', $atr);
+							echo form_label('Desde:','fecha1');
+							echo "<input type='date' name='fechadesde' value=".$desde.">";
+							echo form_label('Hasta:','fecha2');
+							echo "<input type='date' name='fechahasta' value=".$hasta.">";
+							echo "<br/>";
+							echo form_error('fechadesde');
+							echo form_error('fechahasta');
+							echo "<br/>";
+							$atr = array(
+								'id'=>'submit',
+								'name'=>'consultar',
+								'value'=>'Consultar',
 							);
-							echo form_dropdown("tipohoja", $hoja);
-						?>
-						<?= "<br/><br/>" ?>
-						<?= form_label('Cantidad de Hojas:','hoj') ?>
-						<?= "<br/>"; ?>
-						<?= form_input('hojas',$canthojas_data) ?>
-						<?= "<br/>"; ?>
-						<?= form_error('hojas') ?>
-						<?= "<br/>"; ?>
-						<?='<div id="boton">' ?>
-						<?= '<br/><br/>'; ?>
-						<?= form_submit($submit) ?>
-						<?= '</div>'; ?>
-					<?= form_close() ?>
+							echo form_submit($atr);
+						echo form_close();
+					?>
+					<?php
+						if($impresiones != false){
+							echo "<table>";
+							echo "<tr>";
+							echo "<td class='td'>Rut</td>";
+							echo "<td class='td'>Nombre</td>";
+							echo "<td class='td'>Carrera</td>";
+							echo "<td class='td'>Hojas</td>";
+							echo "<td class='td'>Tipo de Papel</td>";
+							echo "<td class='td'>Fecha</td>";
+							echo "<td class='td'>Hora</td>";
+							echo "</tr>";
+							
+							foreach($impresiones as $row){
+								echo "<tr>";
+								foreach($alumnos as $row3){
+									if($row3['id_alum'] == $row['alumno_fk']){
+										echo "<td>".$row3['rut']."</td>";
+										echo "<td>".$row3['nombre']."</td>";
+										foreach($carreras as $row4){
+											if($row4['id_carrera'] == $row3['carrera_fk']){
+												echo "<td>".$row4['codigo']."</td>";
+											}
+										}
+									}
+								}
+								echo "<td>".$row['n_hojas']."</td>";
+								echo "<td>".$row['tipo_fk']."</td>";
+								echo "<td>".$row['fecha']."</td>";
+								echo "<td>".$row['hora']."</td>";
+								echo "</tr>";
+							}
+							echo "</tr>";
+							echo "</table>";
+							echo "<br/>";
+						}						
+					?>
 				</article>
 			</section>
 			<footer class="footer">

@@ -48,13 +48,18 @@ td a:hover{
 	text-decoration: underline;
 	color: #FF3333;
 }
-
+h1{
+	margin-left: 50px;
+}
 h2{
 	text-align: center;
 }
 h3{
+	text-align: center;
 	padding: 5px;
-	margin-left: 30px;
+}
+h6{
+	margin-left: 50px;
 }
 /* Contenedor de toda la página */
 
@@ -115,6 +120,7 @@ h3{
 .content{
 	margin: 0;
 	padding: 20px;
+	min-height: 370px;
 	border: 1px solid #A0A0A0;
 }
 
@@ -244,6 +250,14 @@ h3{
 }
 
 /* Exclusivo de reserva de laboratorios */ 
+.ventana-view-reserva{
+	width: auto;
+	height: auto;
+	margin-right: auto;
+	margin-left: auto;
+	border: 1px solid #AAAAAA;
+	font-size: 12px;
+}
 
 .ventana-reserva{
 	border: 1px solid #AAAAAA;
@@ -273,22 +287,29 @@ h3{
 }
 
 .link-add{
-	border: 1px solid #CCCCCC;
-	padding: 8px 15px 8px 15px;
+	display: block;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	font-weight: bold;
+	width: 150px;
+	padding: 10px 0px 10px 0px;
+	color: #EEEEEE;
+	font-size: 12px;
+	background: linear-gradient(180deg,#999999 10%, #767676 90%);
+	border: 1px solid #999999;
 	text-decoration: none;
 	text-align: center;
-	font-size: 12px;
-	margin-left: 114px;
-	color: #EEEEEE;
-	background: linear-gradient(180deg,#BBBBBB 10%, #404040 90%);
 }
 
 .link-add:hover{
-	border: 1px solid #EEEEEE;
-	background: linear-gradient(180deg,#EEEEEE 10%, #808080 90%);
+	border: 1px solid #969696;
+	background: linear-gradient(180deg,#BBBBBB 10%, #969696 90%);
 	color: #FFFFFF;
+	text-decoration: none;
+	text-align: center;	
+	color: #FFFFFF; 
 }
-
 
 .ventana-imp{
 	border: 1px solid #AAAAAA;

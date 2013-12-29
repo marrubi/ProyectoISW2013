@@ -10,6 +10,13 @@
 	<body>
 		<div class="contenido-total">
 			<header class="encabezado">
+				<ul class="enlaces">
+					<li><a href="http://www.utem.cl">UTEM</a></li>
+					<li><a href="http://informatica.utem.cl">Informática UTEM</a></li>
+					<li><a href="http://postulacion.utem.cl">Dirdoc</a></li>
+					<li><a href="http://reko.utem.cl">Reko</a></li>
+					<li><a href="https://www.facebook.com/universidadtecnologicametropolitana">Facebook UTEM</a></li>
+				</ul>
 				<a class="image" href="<?php echo base_url();?>"><img alt="logoutem" src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
 				<img alt="logocna" src="<?php echo base_url('assets/img/logo-estatales2.jpg');?>"/>
 			</header>

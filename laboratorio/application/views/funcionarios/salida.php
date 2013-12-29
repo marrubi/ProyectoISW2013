@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Perfil Funcionario</title>
+		<title>Salida Alumno</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/styleperf2.css');?>">
 		<link rel="icon" type="image/png" href="<?php echo base_url('assets/img/comp.png');?>">
@@ -15,7 +15,7 @@
 						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
-				<a class="image"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
+				<a class="image" href="<?= base_url('index.php/funcionario/index') ?>"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
 				<img id="im2" src="<?php echo base_url('assets/img/logo-estatales2.jpg');?>"/>
 			</header>
 			<nav class="menu">
@@ -23,24 +23,18 @@
 					<li><a href="">Laboratorios</a>
 						<ul>
 							<li><a href="<?= base_url('index.php/funcionario/laboratorios')?>">Estado de Laboratorios</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/equipos/1')?>">Laboratorio 1</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/equipos/2')?>">Laboratorio 2</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/equipos/3')?>">Laboratorio 3</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/equipos/4')?>">Laboratorio 4</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/equipos/5')?>">Laboratorio 5</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/equipos/6')?>">Laboratorio 6</a></li>
 						</ul>
 					</li>
 					<li><a href="">Impresiones</a>
 						<ul>
-							<li><a href="<?= base_url('index.php/funcionario/imp')?>">Impresiones Realizadas</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/ag_imp')?>">Agregar Impresión</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/impresiones')?>">Impresiones Realizadas</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/impresora')?>">Estado de Impresora</a></li>
 						</ul>
 					</li>
 					<li><a href="">Inventario</a>
 						<ul>
 							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Agregar Préstamo de Inventario</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Prestar Herramienta de Inventario</a></li>
 						</ul>
 					</li>
 					<li><a href="">Alumno</a>
@@ -51,7 +45,7 @@
 					</li>
 					<li><a href="">Reservas</a>
 						<ul>
-							<li><a href="<?= base_url('index.php/funcionario/ver_reservas'); ?>">Académico</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/reservas'); ?>">Académico</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -98,13 +92,40 @@
 									echo "</tr>";
 								}
 								echo "</table>";
+								echo "<br/>";
 							}
 							else{
-								echo "<h2>No tiene equipos asignados</h2>";
+								echo "<h3>No hay equipo asignado al alumno ingresado</h3>";
+								echo "<br/>";
 							}
 						}
 						else{
-							echo "<h2>No hay equipos asignados</h2>";
+							echo "<h3>Alumnos dentro del laboratorio</h3>";
+							echo "<table>";
+								echo "<tr>";
+								echo "<td class='td'>Equipo</td>";
+								echo "<td class='td'>Serial</td>";
+								echo "<td class='td'>Rut Alumno</td>";
+								echo "<td class='td'>Nombre Alumno</td>";
+								echo "</tr>";
+								foreach($nodisponible as $row){
+									echo "<tr>";
+									echo "<td>".$row['equipo-fk']."</td>";
+									foreach($equipos as $row2){
+										if($row2['id_eq'] == $row['equipo-fk']){
+											echo "<td>".$row2['serie']."</td>";
+										}
+									}
+									foreach($alumnos as $row3){
+										if($row3['id_alum'] == $row['alumno-fk']){
+											echo "<td>".$row3['rut']."</td>";
+											echo "<td>".$row3['nombre']."</td>";
+										}
+									}
+									echo "</tr>";
+								}
+							echo "</table>";
+							echo "<br/>";
 						}
 					?>
 				</article>

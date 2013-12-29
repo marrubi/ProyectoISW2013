@@ -5,6 +5,22 @@ class EquipoModel extends CI_Model{
 		parent::__construct();
 	}
 
+	public function consultarAlumno($idest){
+		$this->db->select('*');
+		$this->db->from('tb-alumno-equipo');
+		$this->db->where('fecha_salida is null');
+		$this->db->where('alumno-fk',$idest);
+
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
 	public function getEquip($num){
 		$this->db->select('*');
 		$this->db->from('tb-equipo');
@@ -74,7 +90,24 @@ class EquipoModel extends CI_Model{
 	public function getOcupados(){
 		$this->db->select('*');
 		$this->db->from('tb-alumno-equipo');
-		$this->db->where('fecha_salida',NULL);
+		$this->db->where('fecha_salida is null');
+		$this->db->order_by('id');
+
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0){
+			return $query->result_array();
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function getOcupadoAlumno($id_alumno){
+		$this->db->select('*');
+		$this->db->from('tb-alumno-equipo');
+		$this->db->where('fecha_salida is null');
+		$this->db->where('alumno-fk',$id_alumno);
 		$this->db->order_by('id');
 
 		$query = $this->db->get();

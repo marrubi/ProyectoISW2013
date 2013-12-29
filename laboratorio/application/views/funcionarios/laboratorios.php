@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Préstamo</title>
+		<title>Laboratorios</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/styleperf2.css');?>">
 		<link rel="icon" type="image/png" href="<?php echo base_url('assets/img/comp.png');?>">
@@ -15,7 +15,7 @@
 						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
-				<a class="image"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
+				<a class="image" href="<?= base_url('index.php/funcionario/index') ?>"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
 				<img border=0 src="<?php echo base_url('assets/img/logo-estatales2.jpg');?>"/>
 			</header>
 			<nav class="menu">
@@ -23,24 +23,18 @@
 					<li><a href="">Laboratorios</a>
 						<ul>
 							<li><a href="<?= base_url('index.php/funcionario/laboratorios')?>">Estado de Laboratorios</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/equipos/1')?>">Laboratorio 1</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/equipos/2')?>">Laboratorio 2</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/equipos/3')?>">Laboratorio 3</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/equipos/4')?>">Laboratorio 4</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/equipos/5')?>">Laboratorio 5</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/equipos/6')?>">Laboratorio 6</a></li>
 						</ul>
 					</li>
 					<li><a href="">Impresiones</a>
 						<ul>
-							<li><a href="<?= base_url('index.php/funcionario/imp')?>">Impresiones Realizadas</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/ag_imp')?>">Agregar Impresión</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/impresiones')?>">Impresiones Realizadas</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/impresora')?>">Estado de Impresora</a></li>
 						</ul>
 					</li>
 					<li><a href="">Inventario</a>
 						<ul>
 							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Agregar Préstamo de Inventario</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Prestar Herramienta de Inventario</a></li>
 						</ul>
 					</li>
 					<li><a href="">Alumno</a>
@@ -51,13 +45,38 @@
 					</li>
 					<li><a href="">Reservas</a>
 						<ul>
-							<li><a href="<?= base_url('index.php/funcionario/ver_reservas'); ?>">Académico</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/reservas'); ?>">Académico</a></li>
 						</ul>
 					</li>
 				</ul>
 			</nav>
 			<section class="content">
-				
+				<?php
+					if($laboratorios == false){
+						echo "<div class='centrar-mensaje'>No hay laboratorios disponibles</div>";
+					}
+					else{
+						echo "<table>";
+						echo "<tr>";
+						echo "<td class='td'>Laboratorio</td>";
+						echo "<td class='td'>Estado</td>";
+						echo "</tr>";
+						$contador = 1;
+						foreach($laboratorios as $row){
+							echo "<tr>";
+							echo "<td><a href='equipos/".$contador."'>".$row['nombre']."</a></td>";
+							if($row['estado'] == '0'){
+								echo "<td>Inhabilitado"."    |    "."<a href='#'>Habilitar</a></td>";
+							}
+							else{
+								echo "<td>Habilitado"."    |    "."<a href='#'>Inhabilitar</a></td>";
+							}
+							echo "</tr>";
+							$contador++;
+						}
+						echo "</table>";
+					}					
+				?>
 			</section>
 			<footer class="footer">
 				<p>Dieciocho 161 - Santiago, Chile. Metro Moneda - Fono: 2787 7500</p>

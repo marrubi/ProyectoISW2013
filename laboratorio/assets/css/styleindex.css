@@ -86,7 +86,7 @@ p{
 .content{
 	border-left: 1px solid #A0A0A0;
 	border-right: 1px solid #A0A0A0;
-	height: 420px;
+	height: 390px;
 }
 
 .text{
@@ -224,10 +224,43 @@ p{
 	display: block;
 	color: #CCCCCC;
 	padding: 10px;
-
 }
 
 .footer ul a:hover{
+	text-decoration: none;
+	margin: auto;
+	color: #FFFFFF;
+}
+
+.enlaces{
+	font-size: 10px;
+	float: left;
+	list-style: none;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	background: #777777;
+	width: 100%;
+}
+
+.enlaces li{
+	float:left;
+}
+
+.enlaces li:hover{
+	color: #FFFFFF;
+	cursor: pointer;
+	background: #848484;
+}
+
+.enlaces a{
+	text-decoration: none;
+	display: block;
+	color: #CCCCCC;
+	padding: 10px;
+}
+
+.enlaces a:hover{
 	text-decoration: none;
 	margin: auto;
 	color: #FFFFFF;

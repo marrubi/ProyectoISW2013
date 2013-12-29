@@ -5,8 +5,11 @@ class ReservaModel extends CI_Model{
 	}
 
 	public function getReservas(){
+		$date = date("Y-m-d");
+		
 		$this->db->select('*');
 		$this->db->from('tb-reserva');
+		$this->db->where('fecha_dest >=',$date);
 
 		$query = $this->db->get();
 
