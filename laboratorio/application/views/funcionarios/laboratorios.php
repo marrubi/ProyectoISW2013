@@ -12,7 +12,7 @@
 			<header class="encabezado">
 				<nav class="header">
 					<ul>
-						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
+						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>" class="submit">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
 				<a class="image" href="<?= base_url('index.php/funcionario/index') ?>"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
@@ -33,8 +33,9 @@
 					</li>
 					<li><a href="">Inventario</a>
 						<ul>
+							<li><a href="<?= base_url('index.php/funcionario/inventario')?>">Inventario Disponible</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/prestado')?>">Inventario Prestado</a></li>
 							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Prestar Herramienta de Inventario</a></li>
 						</ul>
 					</li>
 					<li><a href="">Alumno</a>
@@ -51,32 +52,38 @@
 				</ul>
 			</nav>
 			<section class="content">
-				<?php
-					if($laboratorios == false){
-						echo "<div class='centrar-mensaje'>No hay laboratorios disponibles</div>";
-					}
-					else{
-						echo "<table>";
-						echo "<tr>";
-						echo "<td class='td'>Laboratorio</td>";
-						echo "<td class='td'>Estado</td>";
-						echo "</tr>";
-						$contador = 1;
-						foreach($laboratorios as $row){
-							echo "<tr>";
-							echo "<td><a href='equipos/".$contador."'>".$row['nombre']."</a></td>";
-							if($row['estado'] == '0'){
-								echo "<td>Inhabilitado"."    |    "."<a href='#'>Habilitar</a></td>";
-							}
-							else{
-								echo "<td>Habilitado"."    |    "."<a href='#'>Inhabilitar</a></td>";
-							}
-							echo "</tr>";
-							$contador++;
+				<article class="ventana-view-reserva">
+					<div class="ventana-reserva-titulo">Estado de laboratorios</div>
+					<br/>
+					<?php
+						if($laboratorios == false){
+							echo "<div class='centrar-mensaje'>No hay laboratorios disponibles</div>";
 						}
-						echo "</table>";
-					}					
-				?>
+						else{
+
+							echo "<table>";
+							echo "<tr>";
+							echo "<td class='td'>Laboratorio</td>";
+							echo "<td class='td'>Estado</td>";
+							echo "</tr>";
+							$contador = 1;
+							foreach($laboratorios as $row){
+								echo "<tr>";
+								echo "<td><a href='equipos/".$contador."'>".$row['nombre']."</a></td>";
+								if($row['estado'] == '0'){
+									echo "<td>Inhabilitado"."    |    "."<a href='#'>Habilitar</a></td>";
+								}
+								else{
+									echo "<td>Habilitado"."    |    "."<a href='#'>Inhabilitar</a></td>";
+								}
+								echo "</tr>";
+								$contador++;
+							}
+							echo "</table>";
+						}					
+					?>
+					<br/>
+				</article>
 			</section>
 			<footer class="footer">
 				<p>Dieciocho 161 - Santiago, Chile. Metro Moneda - Fono: 2787 7500</p>

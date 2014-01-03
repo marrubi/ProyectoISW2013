@@ -93,20 +93,7 @@ h6{
 	cursor: pointer;
 }
 
-.header ul a{
-	text-decoration: none;
-	text-align: center;
-	font-weight: bold;
-	display: block;
-	padding: 10px 20px 10px 20px;
-	color: #EEEEEE;
-	background: linear-gradient(180deg,#0000E5 10%, #000075 90%);
-}
 
-.header ul a:hover{
-	background: linear-gradient(180deg,#0000FE 10%, #0000BB 90%);
-	color: #FFFFFF;
-}
 
 .image{
 	display: block;
@@ -233,20 +220,43 @@ h6{
 }
 
 #submit{
-	color: #eeeeee;
+	color: #EEEEEE;
 	display: block;
 	text-align: center;
 	padding: 10px;
 	width: 100px;
+	font-weight: bold;
 	margin-right: auto;
 	margin-left: auto;
-	border: 0;
-	background: linear-gradient(180deg,#00E500 10%, #007500 90%);
+	border: 1px solid #999999;
+	background: linear-gradient(180deg,#999999 10%, #767676 90%);
 }
 
 #submit:hover{
 	cursor: pointer;
-	background: linear-gradient(180deg,#88E588 10%, #00CC00 90%);
+	color: #FFFFFF;
+	border: 1px solid #969696;
+	background: linear-gradient(180deg,#BBBBBB 10%, #969696 90%);
+}
+
+
+.submit{
+	padding: 5px;
+	width: 70px;
+	margin-left: 5px;
+	font-weight: bold;
+	color: #EEEEEE;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+	border: 1px solid #999999;
+	background: linear-gradient(180deg,#999999 10%, #767676 90%);
+}
+.submit:hover{
+	cursor: pointer;
+	border: 1px solid #969696;
+	color: #FFFFFF;
+	background: linear-gradient(180deg,#BBBBBB 10%, #969696 90%);
 }
 
 /* Exclusivo de reserva de laboratorios */ 
@@ -375,7 +385,7 @@ h6{
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;
-	width: 250px;
+	width: 270px;
 }
 
 .center3{

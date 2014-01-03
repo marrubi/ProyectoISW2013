@@ -12,7 +12,7 @@
 			<header class="encabezado">
 				<nav class="header">
 					<ul>
-						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
+						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>" class="submit">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
 				<a class="image" href="<?= base_url('index.php/funcionario/index') ?>"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
@@ -33,8 +33,9 @@
 					</li>
 					<li><a href="">Inventario</a>
 						<ul>
+							<li><a href="<?= base_url('index.php/funcionario/inventario')?>">Inventario Disponible</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/prestado')?>">Inventario Prestado</a></li>
 							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Prestar Herramienta de Inventario</a></li>
 						</ul>
 					</li>
 					<li><a href="">Alumno</a>
@@ -55,15 +56,17 @@
 					<div class="ventana-imp-titulo"><?php echo $titulo?></div>
 					<div class="center">
 					<?php
-						$atr = array(
-								'class'=>'padding',
+						$submit = array(
+							'name'=>'enviar',
+							'value'=>'Enviar',
+							'class'=>'submit'
 						);
 						if($switch == "1"){
 							echo "<div class='center2'>";
 							echo form_open('funcionario/val_ing_al');
 							echo form_label('Rut: ','rut');
 							echo form_input('rut');
-							echo form_submit('enviar','Enviar');
+							echo form_submit($submit);
 							echo form_error('rut');
 							echo form_close();
 							echo "</div>";
@@ -93,7 +96,7 @@
 								'2' => 'Laboratorio 2'
 							);
 							echo form_dropdown('laboratorio',$array); 
-							echo form_submit('enviar','Enviar'); 
+							echo form_submit($submit); 
 							echo form_error('rut'); 
 							echo form_close();
 							echo "</div>";
@@ -123,7 +126,7 @@
 								'2' => 'Laboratorio 2'
 							);
 							echo form_dropdown('laboratorio',$array); 
-							echo form_submit('enviar','Enviar'); 
+							echo form_submit($submit); 
 							echo form_error('rut'); 
 							echo form_close();
 							echo "</div>";
@@ -154,9 +157,6 @@
 						}
 					?>
 					</div>
-					<?php
-
-					?>
 				</article>
 			</section>
 			<footer class="footer">

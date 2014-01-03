@@ -9,7 +9,10 @@ class ReservaModel extends CI_Model{
 		
 		$this->db->select('*');
 		$this->db->from('tb-reserva');
+		$this->db->join('tb-profesor','academico_fk = id_profesor');
+		$this->db->join('tb-asignatura','asignatura_fk = id_asig');
 		$this->db->where('fecha_dest >=',$date);
+		$this->db->where('eliminado', 0);
 
 		$query = $this->db->get();
 
@@ -53,9 +56,13 @@ class ReservaModel extends CI_Model{
 		}
 	}
 
-	public function delReserva($id){
+	public function delReserva($id, $rut){
+		$array = array(
+			'eliminado' => 1,
+			'rut_responsable_eli' => $rut
+		);
 		$this->db->where('id_res', $id);
-		$this->db->delete('tb-reserva');
+		$this->db->update('tb-reserva',$array);
 
 		return true;
 	}
@@ -94,6 +101,43 @@ class ReservaModel extends CI_Model{
 
 		if($query->num_rows() > 0){
 			return $query->result_array();
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function validarRepetidosAdd($datos){
+		$this->db->select('*');
+		$this->db->from('tb-reserva');
+		$this->db->where('lab_fk',$datos['laboratorio']);
+		$this->db->where('periodo_fk',$datos['periodo']);
+		$this->db->where('fecha_dest',$datos['fecha']);
+		$this->db->where('eliminado',0);
+
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function validarRepetidosEd($id,$array){
+		$this->db->select('*');
+		$this->db->from('tb-reserva');
+		$this->db->where('lab_fk', $array['laboratorio']);
+		$this->db->where('periodo_fk', $array['periodo']);
+		$this->db->where('fecha_dest', $array['fecha']);
+		$this->db->where('id_res !=',$id);
+		$this->db->where('eliminado',0);
+
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0){
+			return true;
 		}
 		else{
 			return false;

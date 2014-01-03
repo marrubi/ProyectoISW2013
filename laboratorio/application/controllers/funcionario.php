@@ -24,7 +24,10 @@ class Funcionario extends CI_Controller{
         $this->load->model('herramientasModel');
 	}
 
-    //Redirecciones
+    /* -------------------------------- */
+    /* ----------   INICIO   ---------- */
+    /* -------------------------------- */
+
 	public function index(){
         if($this->session->userdata('logged_in')){
             $session_data = $this->session->userdata('logged_in');
@@ -37,7 +40,10 @@ class Funcionario extends CI_Controller{
         }
     }
 
+
+    /* -------------------------------------------------------------- */
     /* ----------          ESTADO DE LABORATORIOS          ---------- */
+    /* -------------------------------------------------------------- */
 
     //Ver laboratorios
     public function laboratorios(){
@@ -51,6 +57,7 @@ class Funcionario extends CI_Controller{
     //Ver equipos de laboratorios
     public function equipos($numLab){
         $data = array(
+            'laboratorio' => $numLab,
             'equipos' => $this->equipoModel->getEquip($numLab),  
             'sumadisponibles' => $this->equipoModel->getSumaDisponibles($numLab),
             'sumanodisponibles'=> $this->equipoModel->getSumaNoDisponibles($numLab),
@@ -60,22 +67,155 @@ class Funcionario extends CI_Controller{
         $this->load->view('funcionarios/equipos',$data);
     }
 
+
+    /* ----------------------------------------------------------------- */
     /* ----------          INVENTARIO DEL LABORATORIO         ---------- */
+    /* ----------------------------------------------------------------- */
 
     //Ver estado de inventario
-    public function estadoInventario(){
+    public function inventario(){
         $array = array(
             'herramientas' => $this->herramientasModel->getHerramientasLibres(),
+            'paso2' => ''
         );
         $this->load->view('funcionarios/inventario',$array);
     }
 
-    //Ver préstamo de inventario
-    public function prestamoInventario(){
-        $this->load->view('funcionarios/prestamo');
+    public function prestar($id){
+        $array = array(
+            'herramientas' => $this->herramientasModel->getHerramientasLibres(),
+            'herramienta_escogida' => $this->herramientasModel->getHerramienta($id),
+            'paso2' => 'si'
+        );
+        $this->load->view('funcionarios/inventario',$array);
     }
 
+    public function validar_prestacion(){
+
+        $this->form_validation->set_rules('rut','Rut','required|trim|xss_clean|callback_validar_rut_prestar');
+        $this->form_validation->set_message('required','Ingrese %s');
+
+        if($this->form_validation->run() == false){
+            $array = array(
+                'herramientas' => $this->herramientasModel->getHerramientasLibres(),
+                'herramienta_escogida' => $this->herramientasModel->getHerramienta($this->input->post('id')),
+                'paso2' => 'si'
+            );
+            $this->load->view('funcionarios/inventario',$array);
+        }
+        else{
+            $id_academico = $this->academicoModel->getID($this->input->post('rut'));
+            $fecha = date("Y-m-d G:i:s");
+            $session_data = $this->session->userdata['logged_in'];
+            $array = array(
+                'rut_responsable_prestamo' => $session_data['rut'],
+                'herramienta_fk' => $this->input->post('id'),
+                'academico_fk' => $id_academico,
+                'fecha_solicitud' => $fecha
+            );
+            $this->herramientasModel->setUso($this->input->post('id'));
+            $this->herramientasModel->setPrestamo($array);
+            redirect('funcionario/prestado');
+        }   
+    }
+
+    public function validar_rut_prestar(){
+        $rut = $this->input->post('rut');
+
+        if($this->academicoModel->consultar_academico($rut) == false){
+            $this->form_validation->set_message('validar_rut_prestar','El rut no se encuentra en la base de datos');
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    //Ver préstamo de inventario
+    public function prestado(){
+        $array = array(
+            'asignacion' => $this->herramientasModel->getHerramientasOcupadas(),
+        );
+        $this->load->view('funcionarios/prestamo',$array);
+    }
+
+    public function devolver($id){
+        $session_data = $this->session->userdata['logged_in'];
+        $array = array(
+            'rut_responsable_devolucion' => $session_data['rut'],
+            'fecha_devolucion' => date("Y-m-s H:i:s")
+        );
+        $id_herramienta = $this->herramientasModel->getIDHerramienta($id);
+        $this->herramientasModel->unsetUso($id_herramienta);
+        $this->herramientasModel->setDevolucion($id,$array);
+        redirect('funcionario/prestado');
+    }
+
+
+    //Ver estado de inventario
+    public function estadoInventario(){
+        $array = array(
+            'inventario' => $this->herramientasModel->getHerramientasTotales()
+        );
+        $this->load->view('funcionarios/estado_inventario', $array);
+    }
+
+    public function asignar_estado_inventario($id){
+        $array = array(
+            'herramienta' => $this->herramientasModel->getHerramientasBaja($id)
+        );
+        $this->load->view('funcionarios/baja_inventario',$array);
+    }
+
+    public function validar_hab_inhab(){
+        $cadena = $this->input->post('cadena');
+        $this->form_validation->set_rules('textarea','motivo','required');
+        $this->form_validation->set_message('required','Debe colocar un %s');
+
+        if($this->form_validation->run() == false){
+            $array = array(
+                'herramienta' => $this->herramientasModel->getHerramientasBaja($this->input->post('id'))
+            );
+            $this->load->view('funcionarios/baja_inventario',$array);
+        }
+        else{
+            if($cadena == 'inhabilitar'){
+                $session_data = $this->session->userdata('logged_in');
+                $array = array(
+                    'rut_responsable' => $session_data['rut'],
+                    'fecha_inhabilitacion' => date("Y-m-d H:i:s"),
+                    'habilitacion' => 2,
+                    'herramienta_fk' => $this->input->post('id'),
+                    'motivo_inhabilitacion' => $this->input->post('textarea')
+                );
+                $array2 = array(
+                    'habilitado' => 2
+                );
+                $this->herramientasModel->setEstado($this->input->post('id'),$array2);
+                $this->herramientasModel->setInhHab($array);
+                redirect('funcionario/estadoInventario');
+            }
+            else{
+                $session_data = $this->session->userdata('logged_in');
+                $array = array(
+                    'rut_responsable' => $session_data['rut'],
+                    'fecha_habilitacion' => date("Y-m-d H:i:s"),
+                    'habilitacion' => 1,
+                    'herramienta_fk' => $this->input->post('id'),
+                    'motivo_habilitacion' => $this->input->post('textarea')
+                );
+                $array2 = array(
+                    'habilitado' => 1
+                );
+                $this->herramientasModel->setEstado($this->input->post('id'),$array2);
+                $this->herramientasModel->setInhHab($array);
+                redirect('funcionario/estadoInventario');
+            }
+        }
+    }
+    /* --------------------------------------------------- */
      /* ----------          IMPRESIONES         ---------- */
+     /* -------------------------------------------------- */
 
     ////Ver imnpresiones
     public function impresiones(){
@@ -93,7 +233,7 @@ class Funcionario extends CI_Controller{
         $hasta = $this->input->post('fechahasta');
 
         $this->form_validation->set_rules('fechadesde','Fecha Desde','required|trim|xss_clean');
-        $this->form_validation->set_rules('fechahasta','Fecha Hasta','required|trim|xss_clean|callback_validar_condiciones');
+        $this->form_validation->set_rules('fechahasta','Fecha Hasta','required|trim|xss_clean|callback_validar_condiciones_fecha');
         $this->form_validation->set_message('required','Ingrese %s');
 
         if($this->form_validation->run() == false){
@@ -114,7 +254,7 @@ class Funcionario extends CI_Controller{
         }
     }
     //Validaciones de fechas para condiciones específicas
-    public function validar_condiciones(){
+    public function validar_condiciones_fecha(){
         //Obtener datos ingresados
         $desde = $this->input->post('fechadesde');
         $hasta = $this->input->post('fechahasta');
@@ -149,7 +289,8 @@ class Funcionario extends CI_Controller{
     public function ag_imp(){ 
         $data = array(
             'rut_data' => '',
-            'canthojas_data' => ''      
+            'canthojas_data' => '',
+            'maximo_imp' => $this->impresionModel->maxHojas()
         );
         $this->load->view('funcionarios/agregar_impresion',$data);
 
@@ -159,7 +300,7 @@ class Funcionario extends CI_Controller{
     public function validar_agr_imp(){
         //Obtener fecha y hora actual
         $fecha = date('Y-m-d');
-        $hora = date('G:i:s');
+        $hora = date('H:i:s');
 
         $this->form_validation->set_rules('rut','Rut Estudiante','required|trim|xss_clean|callback_validar_rut_agr_imp');
         $this->form_validation->set_rules('hojas','Cantidad Hojas','required|trim|xss_clean|callback_validar_cant_hojas');
@@ -169,26 +310,38 @@ class Funcionario extends CI_Controller{
             $data = array(
                 'rut_data' => $this->input->post('rut'),
                 'canthojas_data' => $this->input->post('hojas'),
+                'maximo_imp' => $this->impresionModel->maxHojas()   
             );
             $this->load->view('funcionarios/agregar_impresion', $data);
         }
         else{
             $idrut = $this->input->post('rut');
+            $session_data = $this->session->userdata['logged_in'];
             $data = array(
+                'rut_responsable_imp' => $session_data['rut'],
                 'alumno_fk' => $this->estudianteModel->getIDEst($idrut),
                 'n_hojas' => $this->input->post('hojas') ,
                 'tipo_fk' => $this->input->post('tipohoja'),
                 'fecha' => $fecha,
                 'hora' => $hora
             );
-            $this->impresionModel->addImpresion($data);
-            
+            $hojas =  $this->input->post('hojas');
 
+            $this->impresionModel->addImpresion($data);
+
+            $id_impresora = $this->impresionModel->getIDImp();
+            $max_hojas = $this->impresionModel->maxHojas();
+            $diferencia = $max_hojas - $hojas;
+            $array = array(
+                'max_hojas' => $diferencia
+            );
+
+            $this->impresionModel->discountImp($id_impresora,$array);
             redirect('funcionario/impresiones');
         }
     }
 
-    //Validar rut para agregar ina impresion
+    //Validar rut para agregar una impresion
     public function validar_rut_agr_imp(){
         $rut = $this->input->post('rut');
 
@@ -207,24 +360,38 @@ class Funcionario extends CI_Controller{
         $cantidad = $this->input->post('hojas');
         
         if($cantidad <= 0){
-            if($this->impresionModel->compHojas($cantidad)){
-                $this->form_validation->set_message('validar_cant_hojas','Cantidad de hojas debe ser mayor que 0');
-                return false;
-            }
+            $this->form_validation->set_message('validar_cant_hojas','Cantidad de hojas debe ser mayor que 0');
+            return false;
         }
         else{
-            return true;    
+            $max_imp = $this->impresionModel->maxHojas();
+            if($cantidad > $max_imp){
+                $this->form_validation->set_message('validar_cant_hojas','Cantidad de hojas no puede ser mayor que la cantidad disponible');
+                return false;
+            }
+            else{
+                return true;
+            }    
         }
     }
 
     // ESTADO IMPRESORA
 
     public function impresora(){
-        $this->load->view('funcionarios/impresora');
+        $array = array(
+            'impresoras' => $this->impresionModel->getImpresoras(),
+            'activa' => $this->impresionModel->getImpresoraActiva()
+        );
+        $this->load->view('funcionarios/impresora', $array);
     }
-     /* ----------          INGRESO-SALIDA ALUMNOS          ---------- */
 
-     //Ingreso Alumnos
+    /* -------------------------------------------------------------- */
+    /* ----------          INGRESO-SALIDA ALUMNOS          ---------- */
+    /* -------------------------------------------------------------- */
+
+    /*   INGRESO   */
+
+    //Ingreso Alumnos
     public function ingresoAlumno(){
         $data = array(
             'titulo' => 'Ingreso de Rut del alumno',
@@ -327,18 +494,22 @@ class Funcionario extends CI_Controller{
         echo "ID Equipo: ".$numequipo."<br/>";
         $fecha = date("Y-m-d H:i:s");
         echo "Fecha: ".$fecha."<br/>";
-
+        $session_data = $this->session->userdata['logged_in'];
         $array = array(
+            'rut_responsable_ing' => $session_data['rut'],
             'alumno-fk' => $this->estudianteModel->getIDEst($rut),
-            'equipo-fk' => $numequipo,
+            'equipo_fk' => $numequipo,
             'fecha_entrada' => $fecha,
         );
-
+        $this->equipoModel->asignarestado($numequipo);
         $this->equipoModel->asignar_ingreso($array);
         redirect('funcionario/salidaAlumno');
     }
 
-    
+
+    /*   SALIDA   */
+
+
     //Salida Alumnos
     public function salidaAlumno(){
         $array = array(
@@ -389,23 +560,26 @@ class Funcionario extends CI_Controller{
     }
 
     public function liberar($id_oc){
+        $eq = $this->equipoModel->getIDEquipoAsignado($id_oc);
         $fecha = date("Y-m-d H:i:s");
+        $session_data = $this->session->userdata['logged_in'];
         $array = array(
+            'rut_responsable_sal' => $session_data['rut'],
             'fecha_salida' => $fecha
         );
-
+        $this->equipoModel->liberarestado($eq);
         $this->equipoModel->setSalida($id_oc,$array);
-        redirect('funcionario/index');
+        redirect('funcionario/ingresoAlumno');
     }
 
+    /* ----------------------------------------------------------- */
     /* ----------          RESERVAS ACADÉMICAS          ---------- */
+    /* ----------------------------------------------------------- */
 
     //Ver Reservas Realizadas
     public function reservas(){
         $data = array(
             'reservas' => $this->reservaModel->getReservas(),
-            'academicos' => $this->academicoModel->getAcademicos(),
-            'asignaturas'=> $this->reservaModel->getAsignaturas(),
         );
         $this->load->view('funcionarios/reserva_acad',$data);
     }
@@ -419,6 +593,7 @@ class Funcionario extends CI_Controller{
         
         $rutac = $this->input->post('rutacad');
         $this->form_validation->set_rules('rutacad','Rut Académico','required|trim|xss_clean|callback_validaracademicoadd');
+        $this->form_validation->set_rules('periodo','Periodo','callback_validar_datos_repetidos_add');
         $this->form_validation->set_rules('fec','Fecha de reserva','required');
         $this->form_validation->set_message('required','Ingrese %s');
 
@@ -426,11 +601,14 @@ class Funcionario extends CI_Controller{
             $this->load->view('funcionarios/agr_reserva_acad');
         }
         else{
+            $session_data = $this->session->userdata['logged_in'];
             $array = array(
+                'rut_responsable_agr' => $session_data['rut'],
+                'eliminado' => 0,
                 'academico_fk'=> $this->academicoModel->getID($rutac),
                 'fecha_dest'=> $this->input->post('fec'),
-                'lab_fk'=> $this->input->post('Laboratorio'),
-                'periodo_fk'=> $this->input->post('Periodo'),
+                'lab_fk'=> $this->input->post('laboratorio'),
+                'periodo_fk'=> $this->input->post('periodo'),
                 'asignatura_fk'=> $this->input->post('Asignatura'),
             );
             $this->reservaModel->setReserva($array);
@@ -452,6 +630,22 @@ class Funcionario extends CI_Controller{
         }
     }
 
+    public function validar_datos_repetidos_add(){
+        $array = array(
+            'laboratorio' => $this->input->post('laboratorio'),
+            'periodo' => $this->input->post('periodo'),
+            'fecha' => $this->input->post('fec')
+        );
+
+        if($this->reservaModel->validarRepetidosAdd($array)){
+            $this->form_validation->set_message('validar_datos_repetidos_add','Ya existe una reserva con estos datos');
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
     //Editar Reservas realizadas
     public function edit_reserva($id_res){
         $datos = $this->reservaModel->getDatos($id_res);
@@ -467,39 +661,36 @@ class Funcionario extends CI_Controller{
         );
         $this->load->view('funcionarios/ed_reserva_acad',$array);
     }
+
     //Validar reserva editada
     public function validar_edit_reserva(){
 
         $this->form_validation->set_rules('rutacad','Rut Académico','required|trim|xss_clean|callback_validaracademicoed');
+        $this->form_validation->set_rules('periodo','Periodo','callback_validar_datos_repetidos_ed');
         $this->form_validation->set_rules('fec','Fecha de reserva','required');
         $this->form_validation->set_message('required','Ingrese %s');
 
         $arrayedit = array(
             'id' => $this->input->post('id'),
             'rut_edit' => $this->input->post('rutacad'),
-            'laboratorio_edit' => $this->input->post('Laboratorio'),
-            'periodo_edit' => $this->input->post('Periodo'),
+            'laboratorio_edit' => $this->input->post('laboratorio'),
+            'periodo_edit' => $this->input->post('periodo'),
             'fecha_edit' => $this->input->post('fec'),
             'asignatura_edit' => $this->input->post('Asignatura')
         );
 
         if($this->form_validation->run() == FALSE){
-            $arrayedit = array(
-                'id' => $this->input->post('id'),
-                'rut_edit' => $this->input->post('rutacad'),
-                'laboratorio_edit' => $this->input->post('Laboratorio'),
-                'periodo_edit' => $this->input->post('Periodo'),
-                'fecha_edit' => $this->input->post('fec'),
-                'asignatura_edit' => $this->input->post('Asignatura')
-            );
+            
             $this->load->view('funcionarios/ed_reserva_acad', $arrayedit);
         }
         else{
+            $session_data = $this->session->userdata['logged_in'];
             $array = array(
+                'rut_responsable_ed' => $session_data['rut'],
                 'academico_fk'=> $this->academicoModel->getID($this->input->post('rutacad')),
                 'fecha_dest'=> $this->input->post('fec'),
-                'lab_fk'=> $this->input->post('Laboratorio'),
-                'periodo_fk'=> $this->input->post('Periodo'),
+                'lab_fk'=> $this->input->post('laboratorio'),
+                'periodo_fk'=> $this->input->post('periodo'),
                 'asignatura_fk'=> $this->input->post('Asignatura'),
             );
             $this->reservaModel->updateReserva($this->input->post('id'),$array);
@@ -509,13 +700,10 @@ class Funcionario extends CI_Controller{
     }
 
     public function validaracademicoed(){
-
         $rutac = $this->input->post('rutacad');
         $fecha = $this->input->post('fec');
         $actual = date("Y-m-d");
         $variable1 = $this->academicoModel->getID($rutac);
-
-        $id = $this->input->post('id');
 
         if($this->academicoModel->consultar_academico($rutac)){
             if($fecha >= $actual){
@@ -532,13 +720,31 @@ class Funcionario extends CI_Controller{
         }
     }
 
+    public function validar_datos_repetidos_ed(){
+        $id = $this->input->post('id');
+        $array = array(
+            'laboratorio' => $this->input->post('Laboratorio'),
+            'periodo' => $this->input->post('periodo'),
+            'fecha' => $this->input->post('fec')
+        );
+
+        if($this->reservaModel->validarRepetidosEd($id,$array)){
+            $this->form_validation->set_message('validar_datos_repetidos_ed','Ya existe una reserva con estos datos');
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 
     //Eliminar Reservas realizadas
     public function del_reserva($id){
-
-        $this->reservaModel->delReserva($id);
-
+        $session_data = $this->session->userdata['logged_in'];
+        $rut = $session_data['rut'];
+        $this->reservaModel->delReserva($id,$rut);
+        
         $data = array(
+            
             'reservas' => $this->reservaModel->getReservas(),
             'academicos' => $this->academicoModel->getAcademicos(),
             'periodos'=> $this->periodoModel->getPeriodos(),
@@ -550,7 +756,11 @@ class Funcionario extends CI_Controller{
     public function validar_del_reserva(){
         
     }
+
+    /* --------------------------------------------------------- */
     /* ----------          SALIR DEL SISTEMA          ---------- */
+    /* --------------------------------------------------------- */
+
      //Finalizar sesión
     public function logout(){
         $this->session->unset_userdata('logged_in');

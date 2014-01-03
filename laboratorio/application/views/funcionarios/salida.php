@@ -12,7 +12,7 @@
 			<header class="encabezado">
 				<nav class="header">
 					<ul>
-						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
+						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>" class="submit">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
 				<a class="image" href="<?= base_url('index.php/funcionario/index') ?>"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
@@ -33,8 +33,9 @@
 					</li>
 					<li><a href="">Inventario</a>
 						<ul>
+							<li><a href="<?= base_url('index.php/funcionario/inventario')?>">Inventario Disponible</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/prestado')?>">Inventario Prestado</a></li>
 							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Prestar Herramienta de Inventario</a></li>
 						</ul>
 					</li>
 					<li><a href="">Alumno</a>
@@ -55,10 +56,11 @@
 					<div class="ventana-imp-titulo">Salida de alumnos</div>
 					<?php
 						$atrsubmit = array(
-								'id'=>'sub',
+								'class'=>'submit',
 								'name'=>'consultar',
 								'value'=>'Consultar',
 							);
+						echo "<br/>";
 						echo "<div class='center3'>";
 						echo form_open('funcionario/validar_salida');
 						echo form_label('Rut: ','rut');
@@ -79,9 +81,9 @@
 								echo "</tr>";
 								foreach($nodisponible as $row){
 									echo "<tr>";
-									echo "<td>".$row['equipo-fk']."</td>";
+									echo "<td>".$row['equipo_fk']."</td>";
 									foreach($equipos as $row2){
-										if($row2['id_eq'] == $row['equipo-fk']){
+										if($row2['id_eq'] == $row['equipo_fk']){
 											echo "<td>".$row2['serie']."</td>";
 										}
 									}
@@ -100,19 +102,22 @@
 							}
 						}
 						else{
-							echo "<h3>Alumnos dentro del laboratorio</h3>";
-							echo "<table>";
+							if($nodisponible){
+								echo "<h3>Alumnos dentro del laboratorio</h3>";
+								echo "<table>";
 								echo "<tr>";
 								echo "<td class='td'>Equipo</td>";
+								echo "<td class='td'>Laboratorio</td>";
 								echo "<td class='td'>Serial</td>";
 								echo "<td class='td'>Rut Alumno</td>";
 								echo "<td class='td'>Nombre Alumno</td>";
 								echo "</tr>";
 								foreach($nodisponible as $row){
 									echo "<tr>";
-									echo "<td>".$row['equipo-fk']."</td>";
+									echo "<td>".$row['equipo_fk']."</td>";
+									echo "<td>".$row['laboratorio_fk']."</td>";
 									foreach($equipos as $row2){
-										if($row2['id_eq'] == $row['equipo-fk']){
+										if($row2['id_eq'] == $row['equipo_fk']){
 											echo "<td>".$row2['serie']."</td>";
 										}
 									}
@@ -124,8 +129,12 @@
 									}
 									echo "</tr>";
 								}
-							echo "</table>";
-							echo "<br/>";
+								echo "</table>";
+								echo "<br/>";
+							}
+							else{
+								echo "<h3>No hay equipos asignados</h3>";
+							}
 						}
 					?>
 				</article>

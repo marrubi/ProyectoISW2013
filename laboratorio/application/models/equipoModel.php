@@ -40,8 +40,10 @@ class EquipoModel extends CI_Model{
 	public function getEqAl(){
 		$this->db->select('*');
 		$this->db->from('tb-equipo');
+		$this->db->join('tb-laboratorio', 'laboratorio_fk = id_lab');
 		$this->db->where('laboratorio_fk', '1');
 		$this->db->or_where('laboratorio_fk','2');
+		$this->db->where('uso-fk',2);
 		$this->db->order_by('referencia');
 
 		$query = $this->db->get();
@@ -58,6 +60,7 @@ class EquipoModel extends CI_Model{
 		$this->db->select('*');
 		$this->db->from('tb-equipo');
 		$this->db->where('laboratorio_fk', $num);
+		$this->db->where('uso-fk',1);
 		$this->db->order_by('referencia');
 
 		$query = $this->db->get();
@@ -90,6 +93,7 @@ class EquipoModel extends CI_Model{
 	public function getOcupados(){
 		$this->db->select('*');
 		$this->db->from('tb-alumno-equipo');
+		$this->db->join('tb-equipo','equipo_fk = id_eq');
 		$this->db->where('fecha_salida is null');
 		$this->db->order_by('id');
 
@@ -202,6 +206,40 @@ class EquipoModel extends CI_Model{
 	public function asignar_ingreso($dato){
 		if($this->db->insert('tb-alumno-equipo',$dato)){
 			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	public function asignarestado($numequipo){
+		$array = array(
+			'uso-fk' => 2
+		);
+		$this->db->where('id_eq',$numequipo);
+		$this->db->update('tb-equipo',$array);
+		return true;
+	}
+
+	public function liberarestado($numequipo){
+		$array = array(
+			'uso-fk' => 1
+		);
+		$this->db->where('id_eq',$numequipo);
+		$this->db->update('tb-equipo',$array);
+		return true;
+	}
+
+	public function getIDEquipoAsignado($id_ingreso){
+		$this->db->select('equipo_fk');
+		$this->db->from('tb-alumno-equipo');
+		$this->db->where('id',$id_ingreso);
+
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0){
+			$row = $query->row();
+			return $row->equipo_fk;
 		}
 		else{
 			return false;

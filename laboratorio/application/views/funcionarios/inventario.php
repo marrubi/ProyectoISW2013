@@ -12,7 +12,7 @@
 			<header class="encabezado">
 				<nav class="header">
 					<ul>
-						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
+						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>" class="submit">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
 				<a class="image" href="<?= base_url('index.php/funcionario/index') ?>"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
@@ -33,8 +33,9 @@
 					</li>
 					<li><a href="">Inventario</a>
 						<ul>
+							<li><a href="<?= base_url('index.php/funcionario/inventario')?>">Inventario Disponible</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/prestado')?>">Inventario Prestado</a></li>
 							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Prestar Herramienta de Inventario</a></li>
 						</ul>
 					</li>
 					<li><a href="">Alumno</a>
@@ -57,25 +58,71 @@
 
 						if($herramientas){
 							echo "<br/>";
+							echo "<br/>";
 							echo "<table>";
 							echo "<tr>";
-							echo "<td></td>";
-							echo "<td></td>";
-							echo "<td></td>";
-							echo "<td></td>";
-							echo "<td></td>";
-							echo "<td></td>";
+							echo "<td class='td'>ID</td>";
+							echo "<td class='td'>Serie</td>";
+							echo "<td class='td'>Modelo</td>";
+							echo "<td class='td'>Marca</td>";
+							echo "<td class='td'>Tipo de Artículo</td>";
+							echo "<td class='td'>Prestar</td>";
 							echo "</tr>";
-							echo "<tr>";
-							echo "</tr>";
+							foreach($herramientas as $row){
+								echo "<tr>";
+								echo "<td>".$row['id_herramienta']."</td>";
+								echo "<td>".$row['n_inventario']."</td>";
+								echo "<td>".$row['modelo']."</td>";
+								echo "<td>".$row['marca']."</td>";
+								echo "<td>".$row['nombre']."</td>";
+								echo "<td><a href='".base_url('index.php/funcionario/prestar/'.$row['id_herramienta'])."'>Prestar</a></td>";
+								echo "</tr>";
+							}
 							echo "</table>";
+							echo "<br/>";
+							if($paso2){
+								$submit = array(
+									'class'=>'submit',
+									'name'=>'prestar',
+									'value'=>'Prestar'
+								);
+								echo "<br/>";
+								echo "<h3>Artículo seleccionado</h3>";
+								echo "<table>";
+								echo "<tr>";
+								echo "<td class='td'>ID</td>";
+								echo "<td class='td'>Serie</td>";
+								echo "<td class='td'>Marca</td>";
+								echo "<td class='td'>Modelo</td>";
+								echo "</tr>";
+								echo "<tr>";
+								echo "<td>".$herramienta_escogida['id']."</td>";
+								echo "<td>".$herramienta_escogida['serie']."</td>";
+								echo "<td>".$herramienta_escogida['marca']."</td>";
+								echo "<td>".$herramienta_escogida['modelo']."</td>";
+								echo "</tr>";
+								echo "</table>";
+								echo "<div class='center2'>";
+								echo form_open('funcionario/validar_prestacion');
+								echo "<br/>";
+								echo form_hidden('id',$herramienta_escogida['id']);
+								echo "<h3>Rut del profesor asignado</h3>";
+								echo form_label("Rut: ");
+								echo form_input('rut');
+								echo form_submit($submit);
+								echo "<br/>";
+								echo form_error('rut');
+								echo form_close();
+								echo "</div>";
+
+							}
 						}
 						else{
+							echo "<br/>";
 							echo "<h2>No hay herramientas disponible</h2>";
+							echo "<br/>";
 						}
 					?>
-					
-					<a href="prestamoInventario" class="link-add">Prestar una herramienta</a>
 					<br/>
 				</article>
 			</section>

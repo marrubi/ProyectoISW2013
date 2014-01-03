@@ -12,7 +12,7 @@
 			<header class="encabezado">
 				<nav class="header">
 					<ul>
-						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
+						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>" class="submit">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
 				<a class="image" href="<?= base_url('index.php/funcionario/index') ?>"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
@@ -33,8 +33,9 @@
 					</li>
 					<li><a href="">Inventario</a>
 						<ul>
+							<li><a href="<?= base_url('index.php/funcionario/inventario')?>">Inventario Disponible</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/prestado')?>">Inventario Prestado</a></li>
 							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Prestar Herramienta de Inventario</a></li>
 						</ul>
 					</li>
 					<li><a href="">Alumno</a>
@@ -52,42 +53,47 @@
 			<section class="content">
 				<article class="ventana-agr-imp">
 					<div class="ventana-agr-imp-titulo">Agregar Impresión</div>
-					<?php 
+					<?php
+					if($maximo_imp > 0){
 						$atr = array(
 							'class'=>'ventana-agr-imp-form',
 						);
 						$label = array('class'=>'lab');
 						$submit = array('name'=>'submit', 'id'=>'submit','value'=>'Agregar');
+						echo  form_open('funcionario/validar_agr_imp', $atr);
+						echo form_label('Rut:','rutal');
+						echo "<br/>";
+						echo form_input('rut',$rut_data);
+						echo "<br/>";
+						echo form_error('rut');
+						echo "<br/>";
+						echo form_label('Tamaño de Papel:','tipoh', $label);
+						echo "<br/>"; 
+
+						$hoja = array(
+							'1'=>'Tamaño Oficio ó Folio - 21,59cm x 35,56cm',
+							'2'=>'Tamaño Carta(Letter) - 21,59cm x 27,94cm',
+							'3'=>'Otro Tipo',
+						);
+						echo form_dropdown("tipohoja", $hoja);
+
+						echo "<br/><br/>";
+						echo form_label('Cantidad de Hojas:','hoj');
+						echo "<br/>";
+						echo form_input('hojas',$canthojas_data);
+						echo form_label('(Máximo: '.$maximo_imp.' hojas)');
+						echo form_error('hojas');
+						echo "<br/>";
+						echo "<div id='boton'>";
+						echo "<br/><br/>";
+						echo form_submit($submit);
+						echo "</div>";
+						echo form_close();
+					}
+					else{
+						echo "<h3>La cantidad de hojas disponibles es 0</h3>";
+					}
 					?>
-					<?= form_open('funcionario/validar_agr_imp', $atr) ?>
-						<?= form_label('Rut:','rutal') ?>
-						<?= "<br/>"; ?>
-						<?= form_input('rut',$rut_data) ?>
-						<?= "<br/>"; ?>
-						<?= form_error('rut') ?>
-						<?= "<br/>"; ?>
-						<?= form_label('Tamaño de Papel:','tipoh', $label) ?>
-						<?= "<br/>"; ?>
-						<?php 
-							$hoja = array(
-								'1'=>'Tamaño Oficio ó Folio - 21,59cm x 35,56cm',
-								'2'=>'Tamaño Carta(Letter) - 21,59cm x 27,94cm',
-								'3'=>'Otro Tipo',
-							);
-							echo form_dropdown("tipohoja", $hoja);
-						?>
-						<?= "<br/><br/>" ?>
-						<?= form_label('Cantidad de Hojas:','hoj') ?>
-						<?= "<br/>"; ?>
-						<?= form_input('hojas',$canthojas_data) ?>
-						<?= "<br/>"; ?>
-						<?= form_error('hojas') ?>
-						<?= "<br/>"; ?>
-						<?='<div id="boton">' ?>
-						<?= '<br/><br/>'; ?>
-						<?= form_submit($submit) ?>
-						<?= '</div>'; ?>
-					<?= form_close() ?>
 				</article>
 			</section>
 			<footer class="footer">

@@ -11,7 +11,7 @@
 			<header class="encabezado">
 				<nav class="header">
 					<ul>
-						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
+						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>" class="submit">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
 				<a class="image" href="<?= base_url('index.php/funcionario/index') ?>"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
@@ -32,8 +32,9 @@
 					</li>
 					<li><a href="">Inventario</a>
 						<ul>
+							<li><a href="<?= base_url('index.php/funcionario/inventario')?>">Inventario Disponible</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/prestado')?>">Inventario Prestado</a></li>
 							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Prestar Herramienta de Inventario</a></li>
 						</ul>
 					</li>
 					<li><a href="">Alumno</a>
@@ -49,9 +50,21 @@
 					</li>
 			</nav>
 			<section class="content">
-				<article class="ventana-imp">
-					<div class="ventana-imp-titulo">Estado Impresora</div>
-					
+				<article class="ventana-view-reserva">
+					<div class="ventana-reserva-titulo">Estado de impresora</div>
+					<?php
+						echo "<table>";
+						echo "<tr>";
+						echo "<td></td>";
+						echo "<td></td>";
+						echo "<td></td>";
+						echo "<td></td>";
+						
+						echo "</tr>";
+						echo "<tr>";
+						echo "</tr>";
+						echo "</table>";
+					?>
 					<br/>
 				</article>
 			</section>

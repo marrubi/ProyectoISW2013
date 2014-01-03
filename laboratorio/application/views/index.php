@@ -12,10 +12,13 @@
 			<header class="encabezado">
 				<ul class="enlaces">
 					<li><a href="http://www.utem.cl">UTEM</a></li>
-					<li><a href="http://informatica.utem.cl">Informática UTEM</a></li>
-					<li><a href="http://postulacion.utem.cl">Dirdoc</a></li>
-					<li><a href="http://reko.utem.cl">Reko</a></li>
-					<li><a href="https://www.facebook.com/universidadtecnologicametropolitana">Facebook UTEM</a></li>
+					<li><a href="http://informatica.utem.cl">INFORMÁTICA UTEM</a></li>
+					<li><a href="http://postulacion.utem.cl">DIRDOC</a></li>
+					<li><a href="http://reko.utem.cl">REKO</a></li>
+					<li><a href="http://www.cftutem.cl">CFT UTEM</a></li>
+					<li><a href="http://www.utemvirtual.cl">UTEMVirtual</a></li>
+					<li><a href="http://www.facebook.com/universidadtecnologicametropolitana">FACEBOOK UTEM</a></li>
+					<li><a href="http://bienestarestudiantil.blogutem.cl">BIENESTAR ESTUDIANTIL</a></li>
 				</ul>
 				<a class="image" href="<?php echo base_url();?>"><img alt="logoutem" src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
 				<img alt="logocna" src="<?php echo base_url('assets/img/logo-estatales2.jpg');?>"/>
@@ -56,7 +59,7 @@
 			</section>
 			<footer class="footer">
 				<ul>
-					<li><a href="<?php echo base_url().'index.php/index/acercade';?>">Acerca del sitio</a></li>
+					<li><a href="<?php echo base_url().'index.php/index/acercade';?>">ACERCA DEL SITIO</a></li>
 				</ul>
 				<br><p>Dieciocho 161 - Santiago, Chile. Metro Moneda - Fono: 2787 7500</p>
 			</footer>

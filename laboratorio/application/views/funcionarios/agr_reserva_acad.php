@@ -12,7 +12,7 @@
 			<header class="encabezado">
 				<nav class="header">
 					<ul>
-						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
+						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>" class="submit">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
 				<a class="image" href="<?= base_url('index.php/funcionario/index') ?>"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
@@ -33,8 +33,9 @@
 					</li>
 					<li><a href="">Inventario</a>
 						<ul>
+							<li><a href="<?= base_url('index.php/funcionario/inventario')?>">Inventario Disponible</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/prestado')?>">Inventario Prestado</a></li>
 							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Prestar Herramienta de Inventario</a></li>
 						</ul>
 					</li>
 					<li><a href="">Alumno</a>
@@ -99,16 +100,14 @@
 							echo form_label('Laboratorio:','labacad');
 							echo "<br/>";
 							$labs = array(
-								'1'=> '1',
-								'2'=> '2',
-								'3'=> '3',
-								'4'=> '4',
-								'5'=> '5',
-								'6'=> '6',
-								'7'=> '7',
-								'8'=> '8',
+								'1'=> 'Laboratorio 1',
+								'2'=> 'Laboratorio 2',
+								'3'=> 'Laboratorio 3',
+								'4'=> 'Laboratorio 4',
+								'5'=> 'Laboratorio 5',
+								'6'=> 'Laboratorio 6',
 							);
-							echo form_dropdown('Laboratorio',$labs);
+							echo form_dropdown('laboratorio',$labs);
 							echo "<br/>";
 							echo form_label('Fecha Destino:','fecha');
 							echo "<br/>";
@@ -127,8 +126,8 @@
 								'7'=> 'VII - Desde 17:15 Hasta 18:35',
 								'8'=> 'VIII - Desde 19:00 Hasta 20:30',
 							);
-							echo form_dropdown('Periodo',$per);
-
+							echo form_dropdown('periodo',$per);
+							echo form_error('periodo');
 							echo "<br/><br/>";
 
 							$atr = array(

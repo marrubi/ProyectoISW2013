@@ -12,7 +12,7 @@
 			<header class="encabezado">
 				<nav class="header">
 					<ul>
-						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>">Cerrar Sesión</a></li>
+						<li><a href="<?php echo base_url('index.php/funcionario/logout')?>" class="submit">Cerrar Sesión</a></li>
 					</ul>
 				</nav>
 				<a class="image" href="<?= base_url('index.php/funcionario/index') ?>"><img src="<?php echo base_url('assets/img/logo2.jpg');?>"/></a>
@@ -33,8 +33,9 @@
 					</li>
 					<li><a href="">Inventario</a>
 						<ul>
+							<li><a href="<?= base_url('index.php/funcionario/inventario')?>">Inventario Disponible</a></li>
+							<li><a href="<?= base_url('index.php/funcionario/prestado')?>">Inventario Prestado</a></li>
 							<li><a href="<?= base_url('index.php/funcionario/estadoInventario')?>">Estado de Inventario</a></li>
-							<li><a href="<?= base_url('index.php/funcionario/prestamoInventario')?>">Prestar Herramienta de Inventario</a></li>
 						</ul>
 					</li>
 					<li><a href="">Alumno</a>
@@ -55,9 +56,14 @@
 					<div class="ventana-reserva-titulo">Reservas solicitadas</div>
 					<?php
 						if($reservas == false){
+							echo "<br/>";
+							echo "<br/>";
+							echo "<br/>";
 							echo "<div class='centrar-mensaje'>No hay reservas pedidas</div>";
 						}
 						else{
+							echo "<br/>";
+							echo "<br/>";
 							echo "<br/>";
 							echo "<table>";
 							echo "<tr>";
@@ -73,27 +79,19 @@
 							$cont = 1;
 							foreach($reservas as $row){
 								echo "<tr>";
-								foreach($academicos as $rw){
-									if($row['academico_fk'] == $rw['id_profesor']){
-										echo "<td>".$rw['rut']."</td>";
-										echo "<td>".$rw['nombre']."</td>";
-									}
-								}
+								echo "<td>".$row['rut']."</td>";
+								echo "<td>".$row['nombre']."</td>";
 								echo "<td>".$row['fecha_dest']."</td>";
 								echo "<td>".$row['lab_fk']."</td>";
 								echo "<td>".$row['periodo_fk']."</td>";
-								foreach($asignaturas as $rs){
-									if($row['asignatura_fk'] == $rs['id_asig']){
-										echo "<td>".$rs['nombre']."</td>";
-									}
-								}
-								
+								echo "<td>".$row['nombre_asignatura']."</td>";
 								echo "<td><a href='edit_reserva/".$row['id_res']."' >Editar</a></td>";
 								echo "<td><a href='del_reserva/".$row['id_res']."' >Eliminar</a></td>";
 								echo "</tr>";
 								$cont++;
 							}
 							echo "</table>";
+							echo "<br/>";
 							echo "<br/>";
 						}					
 					?>
