@@ -8,6 +8,7 @@
 		<script src="<?php echo base_url('assets/js/jquery.js');?>"></script>
 	</head>
 	<body>
+		<h1>Ingresando codigo nuevo como prueba</h1>
 		<div class="contenido-total">
 			<header class="encabezado">
 				<ul class="enlaces">
